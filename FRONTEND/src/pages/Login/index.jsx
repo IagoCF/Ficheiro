@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './style.css'
 import api from '../../services/api'
 
@@ -6,6 +7,7 @@ function Login() {
 
   const inputEmail = useRef()
   const inputSenha = useRef()
+  const navigate = useNavigate()
 
   async function entrar() {
     const email = inputEmail.current.value
@@ -36,6 +38,10 @@ function Login() {
     }
   }
 
+  function irParaRegistrar() {
+    navigate('/home')
+  }
+
   return (
 
     <div className="container">
@@ -45,6 +51,13 @@ function Login() {
         <input placeholder="Senha" name="senha" type="password" ref={inputSenha}/>
         <button type="button" onClick={entrar}>Cadastrar</button>
       </form>
+    
+    <div className="container2">
+      <h1>Já tem uma conta?</h1>
+      <p>Faça login para acessar sua conta</p>
+      <button type="button" onClick={irParaRegistrar}>Registrar</button>
+    </div>
+
 
     </div>
 
