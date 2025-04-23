@@ -39,7 +39,7 @@ function Login() {
   }
 
   function irParaRegistrar() {
-    navigate('/home')
+    navigate('/registrar')
   }
 
   return (

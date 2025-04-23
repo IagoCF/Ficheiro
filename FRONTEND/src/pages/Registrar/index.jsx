@@ -3,7 +3,7 @@ import './style.css'
 import Trash from '../../assets/bin.png'
 import api from '../../services/api'
 
-function Home() {
+function Registrar() {
   const [users, setUsers] = useState([])
 
   const inputApelido = useRef()
@@ -105,4 +105,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Registrar
