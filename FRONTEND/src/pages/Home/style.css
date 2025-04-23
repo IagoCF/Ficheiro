@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Imagem de fundo */
+.background {
+    background-image: url('src/assets/background.jpg');
+    background-size: cover;
+    background-position: top center;
+    height: 100vh;
+    position: relative;
+}
+
+/* Header fixo no topo */
+header {
+    background-color: black;
+    color: white;
+    padding: 10px 40px;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+header .logo img {
+    width: 220px;
+    margin-right: 10px;
+}
+
+nav a {
+    font-size: 18px;
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+.botaoHome {
+    color: #5AD618;
+}
+
+nav a:hover {
+    color: #5AD618;
+}
+
+/* Bloco de boas-vindas */
+.welcome {
+    position: absolute;
+    text-align: left;
+    top: 25%;
+    background-color: white;
+    border-radius: 0 150px 150px 0;
+    width: 46%;
+    height: 41vh;
+}
+
+.welcome h1 {
+    text-align: left;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-bottom: 0%;
+    font-size: 64px;
+    margin-bottom: 0px;
+    color: black
+}
+
+.welcome h1 span {
+    padding: 0;
+    color: #00c000;
+    font-weight: bold;
+    font-size: 128px;
+}
+
+.welcome h1, .welcome h1 span {
+    margin: 0;
+    line-height: 1;
+}
+  
+
+.welcome p {
+    margin-left: 40px;
+    font-size: 18px;
+}
+
+/* Logo elfo sobreposto */
+.overlay-logo {
+    position: absolute;
+    top: 25%;
+    right: 100px;
+    width: 250px;
+    opacity: 0.9;
+}

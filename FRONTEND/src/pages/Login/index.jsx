@@ -50,14 +50,13 @@ function Login() {
         <input placeholder="Email" name="email" type="email" ref={inputEmail}/>
         <input placeholder="Senha" name="senha" type="password" ref={inputSenha}/>
         <button type="button" onClick={entrar}>Cadastrar</button>
-      </form>
-    
+
     <div className="container2">
       <h1>Já tem uma conta?</h1>
-      <p>Faça login para acessar sua conta</p>
-      <button type="button" onClick={irParaRegistrar}>Registrar</button>
+      <p>Faça <a onClick={irParaRegistrar} style={{ cursor: 'pointer' }}>login</a> para acessar sua conta</p>
     </div>
 
+      </form>
 
     </div>
 
