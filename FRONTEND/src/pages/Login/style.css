@@ -29,7 +29,7 @@
 }
 
 h1 {
-    color: #fff;
+    color: #000;
     font-size: 28px;
     text-align: center;
 }
@@ -40,7 +40,7 @@ form {
     gap: 30px;
     padding: 30px;
     border-radius: 10px;
-    background-color: #2E2D4E;
+    background-color: #FFFFFF;
     max-width: 50%;
     width: 400px;
     margin-bottom: 20px;
@@ -50,8 +50,9 @@ form {
     }
 
     & button {
+        color: #fff;
         border-radius: 30px;
-        background-color: #8B8AE1;
+        background-color: #0D603E;
         height: 40px;
         border: none;
         font-weight: bold;
@@ -64,11 +65,11 @@ form {
     }
 
     & input {
-        border: 1px solid #48456C;
+        border: 1px solid #000;
         border-radius: 30px;
         height: 40px;
-        background-color: #363653;
-        color: #fff;
+        background-color: transparent;
+        color: #000;
         font-size: 16px;
         padding-left: 10px;
         outline: none

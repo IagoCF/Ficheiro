@@ -32,6 +32,7 @@ function Login() {
       }
 
       navigate('/homelogin')
+
     } catch (error) {
       alert('Erro ao realizar login!')
       console.error(error)
@@ -47,7 +48,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="background">
       <header>
         <div className="logo">
           <img src={Logo} alt="Logo" />
@@ -66,8 +67,8 @@ function Login() {
           <button type="button" onClick={entrar}>Entrar</button>
 
           <div className="container2">
-            <h1>Já tem uma conta?</h1>
-            <p>Faça <a onClick={irParaRegistrar} style={{ cursor: 'pointer' }}>login</a> para acessar sua conta</p>
+            <h1>Não tem uma conta?</h1>
+            <p>Clique <a onClick={irParaRegistrar} style={{ cursor: 'pointer' }}>aqui</a> para se registrar!</p>
           </div>
         </form>
       </div>
