@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './style.css'
 import api from '../../services/api'
+import Logo from '../../assets/logo.png'
 
 function Login() {
 
@@ -28,10 +29,9 @@ function Login() {
       if (usuario.senha !== senha) {
         alert('Senha incorreta!')
         return
-      } 
+      }
 
-      alert('Login realizado com sucesso!')
-      console.log(response.data)
+      navigate('/homelogin')
     } catch (error) {
       alert('Erro ao realizar login!')
       console.error(error)
@@ -42,24 +42,36 @@ function Login() {
     navigate('/registrar')
   }
 
+  function irParaHome() {
+    navigate('/')
+  }
+
   return (
+    <div>
+      <header>
+        <div className="logo">
+          <img src={Logo} alt="Logo" />
+        </div>
+        <nav>
+          <a onClick={irParaHome} style={{ cursor: 'pointer' }}>Home</a>
+          <a className="botaoSelecionado" style={{ cursor: 'pointer' }}>Login/Registro</a>
+        </nav>
+      </header>
 
-    <div className="container">
-      <form>
-        <h1>Fazer login</h1>
-        <input placeholder="Email" name="email" type="email" ref={inputEmail}/>
-        <input placeholder="Senha" name="senha" type="password" ref={inputSenha}/>
-        <button type="button" onClick={entrar}>Entrar</button>
+      <div className="container">
+        <form>
+          <h1>Fazer login</h1>
+          <input placeholder="Email" name="email" type="email" ref={inputEmail} />
+          <input placeholder="Senha" name="senha" type="password" ref={inputSenha} />
+          <button type="button" onClick={entrar}>Entrar</button>
 
-    <div className="container2">
-      <h1>Já tem uma conta?</h1>
-      <p>Faça <a onClick={irParaRegistrar} style={{ cursor: 'pointer' }}>login</a> para acessar sua conta</p>
+          <div className="container2">
+            <h1>Já tem uma conta?</h1>
+            <p>Faça <a onClick={irParaRegistrar} style={{ cursor: 'pointer' }}>login</a> para acessar sua conta</p>
+          </div>
+        </form>
+      </div>
     </div>
-
-      </form>
-
-    </div>
-
   )
 }
 

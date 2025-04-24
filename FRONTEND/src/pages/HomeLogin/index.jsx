@@ -3,7 +3,7 @@ import Logo from '../../assets/logo.png'
 import Background from '../../assets/background.jpg'
 import './style.css'
 
-function Home() {
+function HomeLogin() {
     const navigate = useNavigate()
 
     function irParaLogin() {
@@ -18,7 +18,8 @@ function Home() {
           </div>
           <nav>
             <a href="#" className="botaoSelecionado">Home</a>
-            <a onClick={irParaLogin} style={{ cursor: 'pointer' }}>Login/Registro</a>
+            <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Salas</a>
+            <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Perfil</a>
           </nav>
         </header>
     
@@ -30,4 +31,4 @@ function Home() {
     )
 }
 
-export default Home
+export default HomeLogin
