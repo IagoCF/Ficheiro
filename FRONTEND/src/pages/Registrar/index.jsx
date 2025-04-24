@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './style.css'
 import Trash from '../../assets/bin.png'
 import api from '../../services/api'
 
 function Registrar() {
   const [users, setUsers] = useState([])
-
+  const navigate = useNavigate()
   const inputApelido = useRef()
   const inputIdade = useRef()
   const inputEmail = useRef()
@@ -62,6 +63,8 @@ function Registrar() {
     });
   
     getUsers();
+    alert('Usuário cadastrado com sucesso!');
+    navigate('/login');
   }  
 
   async function deleteUsers(id) {

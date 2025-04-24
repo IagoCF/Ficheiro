@@ -46,10 +46,10 @@ function Login() {
 
     <div className="container">
       <form>
-        <h1>Cadastro de Usuários</h1>
+        <h1>Fazer login</h1>
         <input placeholder="Email" name="email" type="email" ref={inputEmail}/>
         <input placeholder="Senha" name="senha" type="password" ref={inputSenha}/>
-        <button type="button" onClick={entrar}>Cadastrar</button>
+        <button type="button" onClick={entrar}>Entrar</button>
 
     <div className="container2">
       <h1>Já tem uma conta?</h1>
