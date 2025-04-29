@@ -47,7 +47,7 @@ function Registrar() {
     const senha = inputSenha.current.value
     const conferirSenha = inputConferirSenha.current.value
     const dataNascimento = new Date(inputIdade.current.value)
-    const hoje = new Date()
+    const hoje = new Date().toISOString().split('T')[0]; // Formata para YYYY-MM-DD
 
     if (senha !== conferirSenha) {
       alert('As senhas não conferem!')
@@ -63,7 +63,8 @@ function Registrar() {
       apelido: inputApelido.current.value,
       idade: inputIdade.current.value,
       email: inputEmail.current.value,
-      senha: senha
+      senha: senha,
+      ingresso: hoje
     })
 
     getUsers()

@@ -11,9 +11,9 @@ function Home() {
       }
 
     return (
-        <div class="background">
+        <div className="background">
         <header>
-          <div class="logo">
+          <div className="logo">
             <img src={Logo} alt="Logo" />
           </div>
           <nav>

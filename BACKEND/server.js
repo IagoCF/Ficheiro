@@ -25,15 +25,15 @@ app.use(express.json());
 
 app.post('/usuarios', function (req, res) {
     // Pegando dados do body da requisição
-    const { apelido, idade, email, senha } = req.body;
+    const { apelido, idade, email, senha, ingresso } = req.body;
 
     // Validação para verificar se algum campo está nulo ou indefinido
     if (!apelido || !idade || !email || !senha) {
         return res.status(400).json({ erro: 'Todos os campos são obrigatórios!' });
     }
 
-    const sql = 'INSERT INTO usuarios (apelido, idade, email, senha) VALUES (?, ?, ?, ?)';
-    const values = [apelido, idade, email, senha];
+    const sql = 'INSERT INTO usuarios (apelido, idade, email, senha, ingresso) VALUES (?, ?, ?, ?, ?)';
+    const values = [apelido, idade, email, senha, ingresso];
 
     conexao.query(sql, values, function (erro, resultado) {
         if (erro) {

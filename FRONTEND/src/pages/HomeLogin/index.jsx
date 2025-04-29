@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
-import Background from '../../assets/background.jpg'
 import './style.css'
 
 function HomeLogin() {
@@ -10,16 +9,20 @@ function HomeLogin() {
         navigate('/login')
       }
 
+    function irParaPerfil() {
+        navigate('/perfil')
+      }
+
     return (
-        <div class="background">
+        <div className="background2">
         <header>
-          <div class="logo">
+          <div className="logo">
             <img src={Logo} alt="Logo" />
           </div>
           <nav>
             <a href="#" className="botaoSelecionado">Home</a>
             <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Salas</a>
-            <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Perfil</a>
+            <a onClick={irParaPerfil} style={{ cursor: 'pointer' }}>Perfil</a>
           </nav>
         </header>
     

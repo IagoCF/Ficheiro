@@ -31,6 +31,11 @@ function Login() {
         return
       }
 
+      localStorage.setItem('usuario', usuario.id)
+      localStorage.setItem('email', usuario.email)
+      localStorage.setItem('apelido', usuario.apelido)
+      localStorage.setItem('idade', usuario.idade)
+      localStorage.setItem('ingresso', usuario.ingresso)
       navigate('/homelogin')
 
     } catch (error) {
