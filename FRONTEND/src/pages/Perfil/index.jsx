@@ -22,6 +22,18 @@ function Perfil() {
         navigate('/perfil')
       }
 
+    function mudarUsuario() {
+        // Remove os dados do usuário do localStorage
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('apelido');
+        localStorage.removeItem('email');
+        localStorage.removeItem('idade');
+        localStorage.removeItem('ingresso');
+
+        // Redireciona para a página de login e substitui a URL no navegador
+        window.location.replace('/login');
+      }
+
     return (
         <div className="background2">
         <header>
@@ -47,6 +59,7 @@ function Perfil() {
               <p>Idade: {userIdade}</p>
               <p>Membro desde: {userIngresso}</p>
               <button>Editar</button>
+              <button onClick={mudarUsuario}>Mudar conta</button>
           </div>
         </div>
 

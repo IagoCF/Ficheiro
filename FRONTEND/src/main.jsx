@@ -6,18 +6,33 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import HomeLogin from './pages/HomeLogin'
 import Perfil from './pages/Perfil'
+import RotaPrivada from './components/rotaPrivada' // Importa o componente de rota privada
 import './mainindex.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <Router> {/* Envolve a aplicação com o Router */}
-        <Routes>
-          <Route path="/" element={<Home />} /> {/* Rota para a página Home */}
-          <Route path="/homelogin" element={<HomeLogin />} /> {/* Rota para a página de Home após Login */}
-          <Route path="/login" element={<Login />} /> {/* Rota para a página de Login */}
-          <Route path="/registrar" element={<Registrar />} /> {/* Rota para a página Home */}
-          <Route path="/perfil" element={<Perfil />} /> {/* Rota para a página de Perfil */}
-        </Routes>
-      </Router>
-  </StrictMode>,
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registrar" element={<Registrar />} />
+        <Route
+          path="/homelogin"
+          element={
+            <RotaPrivada>
+              <HomeLogin />
+            </RotaPrivada>
+          }
+        />
+        <Route
+          path="/perfil"
+          element={
+            <RotaPrivada>
+              <Perfil />
+            </RotaPrivada>
+          }
+        />
+      </Routes>
+    </Router>
+  </StrictMode>
 )
