@@ -44,6 +44,7 @@ form {
     max-width: 50%;
     width: 400px;
     margin-bottom: 20px;
+    margin-left: 0px;
 
     & a {
         color: #5AD618
