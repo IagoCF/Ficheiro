@@ -10,7 +10,7 @@ const conexao = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'12345',
-    database:'teste',
+    database:'ficheiro',
     dateStrings: true // <- força que datas venham como string
 });  
 
