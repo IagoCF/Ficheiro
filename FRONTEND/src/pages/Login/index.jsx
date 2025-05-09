@@ -11,36 +11,38 @@ function Login() {
   const navigate = useNavigate()
 
   async function entrar() {
-    const email = inputEmail.current.value
-    const senha = inputSenha.current.value
+    const email = inputEmail.current.value;
+    const senha = inputSenha.current.value;
 
     if (!email || !senha) {
-      alert('Preencha todos os campos!')
-      return
+      alert('Preencha todos os campos!');
+      return;
     }
 
     try {
-      const response = await api.get('/usuarios', { email, senha })
+      // Envia os parâmetros como query parameters
+      const response = await api.get('/usuarios', {
+        params: { email, senha }, // Envia email e senha como parâmetros
+      });
+
       if (response.data.length === 0) {
-        alert('Usuário não encontrado!')
-        return
-      }
-      const usuario = response.data[0]
-      if (usuario.senha !== senha) {
-        alert('Senha incorreta!')
-        return
+        alert('Usuário não encontrado ou senha incorreta!');
+        return;
       }
 
-      localStorage.setItem('usuario', usuario.id)
-      localStorage.setItem('email', usuario.email)
-      localStorage.setItem('apelido', usuario.apelido)
-      localStorage.setItem('idade', usuario.idade)
-      localStorage.setItem('ingresso', usuario.ingresso)
-      navigate('/homelogin')
+      const usuario = response.data[0];
 
+      // Armazena os dados do usuário no localStorage
+      localStorage.setItem('usuario', usuario.id);
+      localStorage.setItem('email', usuario.email);
+      localStorage.setItem('apelido', usuario.apelido);
+      localStorage.setItem('idade', usuario.idade);
+      localStorage.setItem('ingresso', usuario.ingresso);
+
+      navigate('/homelogin');
     } catch (error) {
-      alert('Erro ao realizar login!')
-      console.error(error)
+      alert('Erro ao realizar login!');
+      console.error(error);
     }
   }
 

@@ -47,12 +47,26 @@ app.post('/usuarios', function (req, res) {
 });
 
 app.get('/usuarios', (req, res) => {
-    const sql = 'SELECT * FROM usuarios'
-    conexao.query(sql, function (erro, resultado) {
-        if (erro) throw erro;
-        res.json(resultado);
+    const { email, senha } = req.query; // Obtém os parâmetros da query string
+
+    if (!email || !senha) {
+        return res.status(400).json({ error: 'Email e senha são obrigatórios' });
+    }
+
+    const sql = 'SELECT * FROM usuarios WHERE email = ? AND senha = ?';
+    conexao.query(sql, [email, senha], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao consultar o banco de dados:', erro);
+            return res.status(500).json({ error: 'Erro interno do servidor' });
+        }
+
+        if (resultado.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado ou senha incorreta' });
+        }
+
+        res.json(resultado); // Retorna o usuário encontrado
     });
-})
+});
 
 app.delete('/usuarios/:id', (req, res) => {
     const id = req.params.id;
