@@ -77,4 +77,62 @@ app.delete('/usuarios/:id', (req, res) => {
     });
 })
 
+app.put('/usuarios/:id', (req, res) => {
+    const id = req.params.id;
+    const { apelido, idade, email, senhaNova, senhaAtual } = req.body;
+
+    // Verifica se a senha atual foi fornecida
+    if (!senhaAtual) {
+        return res.status(400).json({ erro: 'A senha atual é obrigatória!' });
+    }
+
+    // Busca o usuário no banco de dados para validar a senha atual
+    const sqlBusca = 'SELECT * FROM usuarios WHERE id = ?';
+    conexao.query(sqlBusca, [id], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao consultar o banco de dados:', erro);
+            return res.status(500).json({ erro: 'Erro interno do servidor' });
+        }
+
+        if (resultado.length === 0) {
+            return res.status(404).json({ erro: 'Usuário não encontrado!' });
+        }
+
+        const usuario = resultado[0];
+
+        // Valida a senha atual
+        if (usuario.senha !== senhaAtual) {
+            return res.status(401).json({ erro: 'A senha atual está incorreta!' });
+        }
+
+        // Cria um objeto com os campos a serem atualizados
+        const camposAtualizados = {};
+        if (apelido) camposAtualizados.apelido = apelido;
+        if (idade) camposAtualizados.idade = idade;
+        if (email) camposAtualizados.email = email;
+        if (senhaNova) camposAtualizados.senha = senhaNova;
+
+        // Verifica se há campos para atualizar
+        if (Object.keys(camposAtualizados).length === 0) {
+            return res.status(400).json({ erro: 'Nenhuma alteração foi feita!' });
+        }
+
+        // Monta a query de atualização dinamicamente
+        const campos = Object.keys(camposAtualizados).map(campo => `${campo} = ?`).join(', ');
+        const valores = Object.values(camposAtualizados);
+        valores.push(id); // Adiciona o ID do usuário ao final dos valores
+
+        const sqlAtualiza = `UPDATE usuarios SET ${campos} WHERE id = ?`;
+        conexao.query(sqlAtualiza, valores, function (erro, resultado) {
+            if (erro) {
+                console.error('Erro ao atualizar registro:', erro);
+                return res.status(500).json({ erro: 'Erro ao atualizar registro' });
+            }
+
+            console.log('Registro atualizado com sucesso!');
+            res.status(200).json({ mensagem: 'Registro atualizado com sucesso!' });
+        });
+    });
+});
+
 app.listen(3000)

@@ -55,7 +55,7 @@ function Perfil() {
         <div className="fundo">
           <div className="titulo">
             <h1>Meu perfil</h1>
-            <p>mostre quem você é</p>
+            <p>Mostre quem você é</p>
           </div>
           <div className="informacoes">
               <p>Apelido: {userApelido}</p>

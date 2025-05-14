@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import './style.css'
-import Trash from '../../assets/bin.png'
 import api from '../../services/api'
 
 function Registrar() {
