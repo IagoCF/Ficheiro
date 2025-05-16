@@ -64,6 +64,26 @@ app.get('/usuarios', (req, res) => {
             return res.status(404).json({ error: 'Usuário não encontrado ou senha incorreta' });
         }
 
+                const usuario = resultado[0];
+        if (usuario.idade) {
+            const nascimento = new Date(usuario.idade);
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const m = hoje.getMonth() - nascimento.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+                idade--;
+            }
+            usuario.idade = idade;
+        }
+
+        if (usuario.ingresso) {
+            const data = new Date(usuario.ingresso);
+            const dia = String(data.getDate()).padStart(2, '0');
+            const mes = String(data.getMonth() + 1).padStart(2, '0');
+            const ano = data.getFullYear();
+            usuario.ingresso = `${dia}/${mes}/${ano}`;
+        }
+
         res.json(resultado); // Retorna o usuário encontrado
     });
 });

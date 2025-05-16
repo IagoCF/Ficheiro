@@ -48,6 +48,11 @@ function Registrar() {
     const dataNascimento = new Date(inputIdade.current.value)
     const hoje = new Date().toISOString().split('T')[0]; // Formata para YYYY-MM-DD
 
+    if (senha.length < 7) {
+      alert('A senha deve ter no mínimo 7 caracteres!')
+      return
+    }
+
     if (senha !== conferirSenha) {
       alert('As senhas não conferem!')
       return
