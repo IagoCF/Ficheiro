@@ -54,9 +54,9 @@ function EditarPerfil() {
     // Cria um objeto com os campos que foram alterados
     const dadosAtualizados = {};
 
-    if (apelido && apelido !== userApelido) dadosAtualizados.apelido = apelido;
-    if (email && email !== userEmail) dadosAtualizados.email = email;
-    if (idade && idade !== userIdade) dadosAtualizados.idade = idade;
+    if (apelido && apelido) dadosAtualizados.apelido = apelido;
+    if (email && email) dadosAtualizados.email = email;
+    if (idade && idade) dadosAtualizados.idade = idade;
     if (novaSenha) dadosAtualizados.senhaNova = novaSenha;
 
     // Adiciona a senha atual ao objeto (obrigatória para autenticação)
@@ -86,6 +86,38 @@ function EditarPerfil() {
     }
   }
 
+async function excluirPerfil() {
+  const senhaAtual = inputSenha.current.value.trim();
+
+  if (!senhaAtual) {
+    alert('Para excluir o perfil, insira sua senha atual.');
+    return;
+  }
+
+  // Confirmação do usuário
+  if (!window.confirm('Tem certeza que deseja excluir seu perfil?')) {
+    return;
+  }
+
+  try {
+    // Envia a senha atual para validação no backend
+    const response = await api.delete(`/usuarios/${userId}`, {
+      data: { senhaAtual }
+    });
+
+    if(response.status = 200) {
+      alert('Perfil excluído!');
+      localStorage.clear();
+      window.location.replace('/login');  
+    } else {
+      alert(response.data.erro || 'Senha atual incorreta ou erro ao excluir perfil.');
+    }
+  } catch (error) {
+    console.error('Erro ao excluir perfil:', error);
+    alert('Senha atual incorreta ou erro ao excluir perfil.');
+  }
+}
+
   return (
     <div className="background2">
       <header>
@@ -104,15 +136,25 @@ function EditarPerfil() {
           <h1>Meu perfil</h1>
           <p>Editar informações</p>
         </div>
-        <form>
-          <input placeholder="Alterar apelido" name="apelido" type="text" ref={inputApelido} />
-          <input placeholder="Alterar email" name="email" type="email" ref={inputEmail} />
-          <input placeholder="Alterar idade" name="idade" type="date" ref={inputIdade} />
-          <input placeholder="Alterar senha" name="senhaNova" type="password" ref={inputNovaSenha} />
-          <input placeholder="Confirmar nova senha" name="senhaNovaConfirmar" type="password" ref={inputConfirmarSenha} />
-          <label>Insira a sua senha atual para salvar</label>
-          <input placeholder="Senha atual" name="senhaAtual" type="password" ref={inputSenha} />
-          <button type="button" onClick={SalvarAlteracao}>Salvar</button>
+        <form className="formAlterar">
+          <div className="coluna-esquerda">
+            <input placeholder="Alterar apelido" name="apelido" type="text" ref={inputApelido} />
+            <input placeholder="Alterar email" name="email" type="email" ref={inputEmail} />
+            <input placeholder="Alterar idade" name="idade" type="date" ref={inputIdade} />
+            <button type="button" className="btn-salvar" onClick={SalvarAlteracao}>Salvar</button>
+          </div>
+          <div className="coluna-direita">
+            <input placeholder="Alterar senha" name="senhaNova" type="password" ref={inputNovaSenha} />
+            <input placeholder="Confirmar nova senha" name="senhaNovaConfirmar" type="password" ref={inputConfirmarSenha} />
+            <input placeholder="Senha atual" name="senhaAtual" type="password" ref={inputSenha} />
+            <button
+              type="button"
+              className="btn-excluir"
+              onClick={excluirPerfil}
+            >
+              Excluir perfil
+            </button>
+          </div>
         </form>
       </div>
 

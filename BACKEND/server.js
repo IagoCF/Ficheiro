@@ -90,12 +90,44 @@ app.get('/usuarios', (req, res) => {
 
 app.delete('/usuarios/:id', (req, res) => {
     const id = req.params.id;
-    const sql = 'DELETE FROM usuarios WHERE id = ?'
-    conexao.query(sql, [id], function (erro, resultado) {
-        if (erro) throw erro;
-        res.json({ mensagem: 'Registro deletado com sucesso!' });
+    const { senhaAtual } = req.body;
+
+    // Verifica se a senha atual foi fornecida
+    if (!senhaAtual) {
+        return res.status(400).json({ erro: 'A senha atual é obrigatória!' });
+    }
+
+    // Busca o usuário no banco de dados para validar a senha atual
+    const sqlBusca = 'SELECT * FROM usuarios WHERE id = ?';
+    conexao.query(sqlBusca, [id], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao consultar o banco de dados:', erro);
+            return res.status(500).json({ erro: 'Erro interno do servidor' });
+        }
+
+        if (resultado.length === 0) {
+            return res.status(404).json({ erro: 'Usuário não encontrado!' });
+        }
+
+        const usuario = resultado[0];
+
+        // Valida a senha atual
+        if (usuario.senha !== senhaAtual) {
+            return res.status(401).json({ erro: 'A senha atual está incorreta!' });
+        }
+
+        // Prossegue com a exclusão
+        const sql = 'DELETE FROM usuarios WHERE id = ?';
+        conexao.query(sql, [id], function (erro, resultado) {
+            if (erro) {
+                console.error('Erro ao deletar registro:', erro);
+                return res.status(500).json({ erro: 'Erro ao deletar registro' });
+            }
+            res.json({ mensagem: 'Registro deletado com sucesso!' });
+            return res.status(200).json({ mensagem: 'Registro deletado com sucesso!' });
+        });
     });
-})
+});
 
 app.put('/usuarios/:id', (req, res) => {
     const id = req.params.id;
