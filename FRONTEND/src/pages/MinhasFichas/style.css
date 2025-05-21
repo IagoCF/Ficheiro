@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Imagem de fundo */
+.background {
+    background-image: url('src/assets/background.jpg');
+    background-size: cover;
+    background-position: top center;
+    height: 100vh;
+    position: relative;
+}
+
+.background2{
+    background-image: url('src/assets/background2.jpg');
+    background-size: cover;
+    background-position: top center;
+    height: 100vh;
+    position: relative;
+}
+
+/* Header fixo no topo */
+header {
+    background-color: black;
+    color: white;
+    padding: 10px 40px;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+header .logo img {
+    width: 220px;
+    margin-right: 10px;
+}
+
+nav a {
+    font-size: 18px;
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+.botaoSelecionado {
+    color: #5AD618;
+}
+
+nav a:hover {
+    color: #5AD618;
+}
+
+.fundo {
+    display: block; /* ou flex-direction: column, se preferir */
+    background-color: aliceblue;
+    width: 75%;
+    height: 90vh;
+    margin: auto;
+    padding-top: 100px;
+    box-shadow: none;
+    gap: 40px;
+    position: relative;
+}
+
+.titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    & h1 {
+        font-size: 48px;
+        margin-bottom: 2px;
+    }
+}

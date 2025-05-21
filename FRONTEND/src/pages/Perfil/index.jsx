@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import './style.css'
-import EditarPerfil from '../EditarPerfil'
+import MinhasFichas from '../MinhasFichas'
 
 function Perfil() {
     const navigate = useNavigate()
@@ -25,9 +25,13 @@ function Perfil() {
 
     function irParaEditarPerfil() {
         navigate('/editarperfil')
-      } 
+      }
 
-    function mudarUsuario() {
+    function irParaMinhasFichas() { 
+        navigate('/minhasfichas')
+      }
+
+    function MudarUsuario() {
         // Remove os dados do usuário do localStorage
         localStorage.removeItem('usuario');
         localStorage.removeItem('apelido');
@@ -64,7 +68,8 @@ function Perfil() {
               <p>Idade: {userIdade}</p>
               <p>Membro desde: {userIngresso}</p>
               <button onClick={irParaEditarPerfil}>Editar</button>
-              <button onClick={mudarUsuario}>Mudar conta</button>
+              <button onClick={MudarUsuario}>Mudar conta</button>
+              <button onClick={irParaMinhasFichas}>Minhas Fichas</button>
           </div>
         </div>
 

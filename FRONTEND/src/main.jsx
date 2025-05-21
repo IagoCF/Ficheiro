@@ -9,6 +9,8 @@ import Perfil from './pages/Perfil'
 import RotaPrivada from './components/rotaPrivada' // Importa o componente de rota privada
 import './mainindex.css'
 import EditarPerfil from './pages/EditarPerfil'
+import MinhasFichas from './pages/MinhasFichas'
+import CriarFicha from './pages/CriarFicha'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +22,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/homelogin" element={<RotaPrivada> <HomeLogin /> </RotaPrivada>}/>
         <Route path="/perfil" element={<RotaPrivada> <Perfil /> </RotaPrivada>}/>
         <Route path="/editarperfil" element={<RotaPrivada> <EditarPerfil /> </RotaPrivada>}/>
+        <Route path="/minhasfichas" element={<RotaPrivada> <MinhasFichas /> </RotaPrivada>}/>
+        <Route path="/criarficha" element={<RotaPrivada> <CriarFicha /> </RotaPrivada>}/>
       </Routes>
     </Router>
   </StrictMode>
