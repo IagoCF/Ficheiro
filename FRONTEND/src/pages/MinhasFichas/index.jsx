@@ -47,9 +47,11 @@ function MinhasFichas() {
       <div className="fundo">
         <div className="titulo">
           <h1>Meu perfil</h1>
-          <p>Editar informações</p>
+          <p>Ver minhas fichas</p>
         </div>
+        <div className="criarficha">
         <button onClick={irParaCriarFicha}>Nova Ficha</button>
+        </div>
       </div>
 
     </div>

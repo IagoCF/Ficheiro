@@ -1,89 +1,158 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body, html {
-    height: 100%;
-    font-family: Arial, sans-serif;
-}
-
-/* Imagem de fundo */
-.background {
-    background-image: url('src/assets/background.jpg');
-    background-size: cover;
-    background-position: top center;
-    height: 100vh;
+.ficha-container {
     position: relative;
-}
-
-.background2{
-    background-image: url('src/assets/background2.jpg');
-    background-size: cover;
-    background-position: top center;
-    height: 100vh;
-    position: relative;
-}
-
-/* Header fixo no topo */
-header {
-    background-color: black;
-    color: white;
-    padding: 10px 40px;
-    height: 10vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header .logo {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-header .logo img {
-    width: 220px;
-    margin-right: 10px;
-}
-
-nav a {
-    font-size: 18px;
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    padding: 10px 20px;
-}
-
-.botaoSelecionado {
-    color: #5AD618;
-}
-
-nav a:hover {
-    color: #5AD618;
-}
-
-.fundo {
-    display: block; /* ou flex-direction: column, se preferir */
-    background-color: aliceblue;
-    width: 75%;
-    height: 90vh;
+    width: 100%;
+    max-width: 856px;
     margin: auto;
-    padding-top: 100px;
-    box-shadow: none;
-    gap: 40px;
-    position: relative;
+    padding: 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.titulo {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+.ficha-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
 
-    & h1 {
-        font-size: 48px;
-        margin-bottom: 2px;
-    }
+.campo {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Dados principais */
+.campo.nome {
+    top: 47px;
+    left: 125px;
+    width: 260px;
+}
+
+.campo.jogador {
+    top: 47px;
+    left: 510px;
+    width: 180px;
+}
+
+.campo.xp {
+    top: 47px;
+    left: 715px;
+    width: 90px;
+}
+
+.campo.classe {
+    top: 87px;
+    left: 125px;
+    width: 150px;
+}
+
+.campo.nivel {
+    top: 87px;
+    left: 285px;
+    width: 50px;
+}
+
+.campo.raca {
+    top: 87px;
+    left: 355px;
+    width: 130px;
+}
+
+.campo.antecedente {
+    top: 87px;
+    left: 505px;
+    width: 130px;
+}
+
+.campo.alinhamento {
+    top: 87px;
+    left: 655px;
+    width: 150px;
+}
+
+/* Atributos */
+.campo.forca {
+    top: 170px;
+    left: 65px;
+    width: 50px;
+}
+
+.campo.destreza {
+    top: 270px;
+    left: 65px;
+    width: 50px;
+}
+
+.campo.constituicao {
+    top: 370px;
+    left: 65px;
+    width: 50px;
+}
+
+.campo.inteligencia {
+    top: 470px;
+    left: 65px;
+    width: 50px;
+}
+
+.campo.sabedoria {
+    top: 570px;
+    left: 65px;
+    width: 50px;
+}
+
+.campo.carisma {
+    top: 670px;
+    left: 65px;
+    width: 50px;
+}
+
+/* Defesa e Vida */
+.campo.ca {
+    top: 160px;
+    left: 285px;
+    width: 50px;
+}
+
+.campo.iniciativa {
+    top: 160px;
+    left: 370px;
+    width: 50px;
+}
+
+.campo.deslocamento {
+    top: 160px;
+    left: 455px;
+    width: 50px;
+}
+
+.campo.pvMax {
+    top: 230px;
+    left: 280px;
+    width: 170px;
+}
+
+.campo.pvAtual {
+    top: 290px;
+    left: 280px;
+    width: 170px;
+}
+
+.campo.pvTemp {
+    top: 350px;
+    left: 280px;
+    width: 170px;
+}
+
+/* História */
+.campo.historia {
+    top: 940px;
+    left: 80px;
+    width: 700px;
+    height: 150px;
 }
