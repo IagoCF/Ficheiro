@@ -106,7 +106,7 @@ nav a:hover {
 
 .fundo {
     display: block; /* ou flex-direction: column, se preferir */
-    background-color: aliceblue;
+    background-color: #FFFFFF;
     width: 75%;
     height: 90vh;
     margin: auto;

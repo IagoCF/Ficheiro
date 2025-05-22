@@ -28,131 +28,131 @@
 
 /* Dados principais */
 .campo.nome {
-    top: 47px;
-    left: 125px;
-    width: 260px;
+    top: 7.8%;
+    left: 8.9%;
+    width: 32%;
 }
 
 .campo.jogador {
-    top: 47px;
-    left: 510px;
-    width: 180px;
+    top: 5.5%;
+    left: 76%;
+    width: 17%;
 }
 
 .campo.xp {
-    top: 47px;
-    left: 715px;
-    width: 90px;
+    top: 8.8%;
+    left: 76%;
+    width: 17%;
 }
 
 .campo.classe {
-    top: 87px;
-    left: 125px;
-    width: 150px;
+    top: 5.5%;
+    left: 43%;
+    width: 12%;
 }
 
 .campo.nivel {
-    top: 87px;
-    left: 285px;
-    width: 50px;
+    top: 5.5%;
+    left: 55%;
+    width: 4%;
 }
 
 .campo.raca {
-    top: 87px;
-    left: 355px;
-    width: 130px;
+    top: 8.8%;
+    left: 43%;
+    width: 16%;
 }
 
 .campo.antecedente {
-    top: 87px;
-    left: 505px;
-    width: 130px;
+    top: 5.5%;
+    left: 59.5%;
+    width: 16%;
 }
 
 .campo.alinhamento {
-    top: 87px;
-    left: 655px;
-    width: 150px;
+    top: 8.8%;
+    left: 59.5%;
+    width: 16%;
 }
 
 /* Atributos */
 .campo.forca {
-    top: 170px;
-    left: 65px;
-    width: 50px;
+    top: 23%;
+    left: 7.4%;
+    width: 4%;
 }
 
 .campo.destreza {
-    top: 270px;
-    left: 65px;
-    width: 50px;
+    top: 32%;
+    left: 7.2%;
+    width: 4.3%;
 }
 
 .campo.constituicao {
-    top: 370px;
-    left: 65px;
-    width: 50px;
+    top: 41%;
+    left: 7.2%;
+    width: 4.3%;
 }
 
 .campo.inteligencia {
-    top: 470px;
-    left: 65px;
-    width: 50px;
+    top: 50%;
+    left: 7.2%;
+    width: 4.3%;
 }
 
 .campo.sabedoria {
-    top: 570px;
-    left: 65px;
-    width: 50px;
+    top: 59%;
+    left: 7.2%;
+    width: 4.3%;
 }
 
 .campo.carisma {
-    top: 670px;
-    left: 65px;
-    width: 50px;
+    top: 68%;
+    left: 7.2%;
+    width: 4.3%;
 }
 
 /* Defesa e Vida */
 .campo.ca {
-    top: 160px;
-    left: 285px;
-    width: 50px;
+    top: 19.4%;
+    left: 37.8%;
+    width: 5.5%;
 }
 
 .campo.iniciativa {
-    top: 160px;
-    left: 370px;
-    width: 50px;
+    top: 19.4%;
+    left: 47%;
+    width: 5.5%;
 }
 
 .campo.deslocamento {
-    top: 160px;
-    left: 455px;
-    width: 50px;
+    top: 19.4%;
+    left: 56.6%;
+    width: 5.5%;
 }
 
 .campo.pvMax {
-    top: 230px;
-    left: 280px;
-    width: 170px;
+    top: 24%;
+    left: 48%;
+    width: 13%;
 }
 
 .campo.pvAtual {
-    top: 290px;
-    left: 280px;
-    width: 170px;
+    top: 27.2%;
+    left: 40%;
+    width: 19.8%;
 }
 
 .campo.pvTemp {
-    top: 350px;
-    left: 280px;
-    width: 170px;
+    top: 34%;
+    left: 40%;
+    width: 19.8%;
 }
 
 /* História */
 .campo.historia {
-    top: 940px;
-    left: 80px;
-    width: 700px;
-    height: 150px;
+    top: 108.7%;
+    left: 9.3%;
+    width: 81.7%;
+    height: 17.5%;
 }
