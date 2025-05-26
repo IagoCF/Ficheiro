@@ -106,38 +106,73 @@ body {
 }
 
 /* Atributos */
-.campo.forca {
+.campo.forcamod {
     top: 20%;
     left: 7.4%;
     width: 4%;
 }
 
-.campo.destreza {
+.campo.forca {
+    top: 23.2%;
+    left: 7.4%;
+    width: 4%;
+}
+
+.campo.destrezamod {
     top: 29%;
     left: 7.2%;
     width: 4.3%;
 }
+.campo.destreza {
+    top: 32.2%;
+    left: 7.2%;
+    width: 4.3%;
+}
 
-.campo.constituicao {
+.campo.constituicaomod {
     top: 38%;
     left: 7.2%;
     width: 4.3%;
 }
 
-.campo.inteligencia {
+.campo.constituicao {
+    top: 41.2%;
+    left: 7.2%;
+    width: 4.3%;
+}
+
+.campo.inteligenciamod {
     top: 47%;
     left: 7.2%;
     width: 4.3%;
 }
 
-.campo.sabedoria {
+.campo.inteligencia {
+    top: 50.2%;
+    left: 7.2%;
+    width: 4.3%;
+}
+
+.campo.sabedoriamod {
     top: 56%;
     left: 7.2%;
     width: 4.3%;
 }
 
-.campo.carisma {
+.campo.sabedoria {
+    top: 59.2%;
+    left: 7.2%;
+    width: 4.3%;
+}
+
+.campo.carismamod {
     top: 65%;
+    left: 7.2%;
+    width: 4.3%;
+}
+
+.campo.carisma {
+    top: 68.2%;
     left: 7.2%;
     width: 4.3%;
 }
@@ -184,7 +219,133 @@ body {
     top: 108.7%;
     left: 9.3%;
     width: 81.7%;
-    height: 17.5%;
+}
+
+/* Inspiração */
+.campo.inspiracao {
+    top: 16.4%;
+    left: 15.7%;
+    width: 4%;
+}
+
+/* Proficiência */
+.campo.proficiencia {
+    top: 21.2%;
+    left: 15.7%;
+    width: 4%;
+}
+
+.campo input,
+.campo {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none;
+    color: #222;
+}
+
+/* Salvaguardas */
+.campo.salvaguardas {
+    position: absolute;
+    top: 25.2%;
+    left: 15.4%;
+    width: 18%;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    font-size: 13px;
+}
+
+.linha-salvaguarda {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin-bottom: 0px;
+    height: 18px;
+    position: relative;
+}
+
+/* Perícias */
+.campo.pericias {
+    position: absolute;
+    top: 39.7%;
+    left: 15.4%;
+    width: 18%;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    font-size: 13px;
+}
+
+.linha-pericia {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin-bottom: 0px;
+    height: 18px;
+    position: relative;
+}
+
+/* Checkbox invisível, mostra apenas o V preto ao marcar */
+.bolinha {
+    width: 16px;
+    height: 16px;
+    accent-color: #000;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.bolinha:checked {
+    background: transparent;
+    border: none;
+}
+
+.bolinha:checked::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    width: 6px;
+    height: 12px;
+    border: solid #000;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+/* Campo de número invisível */
+.numero-salvaguarda,
+.numero-pericia {
+    width: 18px;
+    height: 16px;
+    font-size: 13px;
+    text-align: center;
+    margin: 0 2px 0 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    position: relative;
+    top: 1px;
+}
+
+.campo.pericias .titulo-bloco {
+    font-weight: bold;
+    margin-bottom: 2px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
 }
 
 .botaoSalvar {
