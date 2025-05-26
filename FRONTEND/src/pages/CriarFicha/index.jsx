@@ -54,7 +54,7 @@ function CriarFicha() {
         </nav>
       </header>
 
-      <div className="fundo">
+      <div className="fundo2">
         <div className="ficha-container">
           <img src={FichaImg} alt="Ficha" className="ficha-img" />
 
@@ -84,10 +84,8 @@ function CriarFicha() {
           <input className="campo pvMax" type="text" placeholder="PV Máximo" ref={inputPontosVida} />
           <input className="campo pvAtual" type="text" placeholder="PV Atual" ref={inputPontosVidaAtuais} />
           <input className="campo pvTemp" type="text" placeholder="PV Temporário" ref={inputPontosVidaTemporarios} />
-
-          {/* História */}
-          <textarea className="campo historia" placeholder="História" ref={inputHistoria}></textarea>
         </div>
+        <button className="botaoSalvar">Salvar</button>
       </div>
     </div>
   )
