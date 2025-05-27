@@ -117,6 +117,19 @@ function CriarFicha() {
   const inputVinculos = useRef();
   const inputFraquezas = useRef();
 
+  const inputAtaquesConjuracao = useRef();
+
+  const inputCaracteristicasTalentos = useRef();
+
+  const inputSabedoriaPassiva = useRef();
+  const inputProficienciasIdiomas = useRef();
+  const inputEquipamento = useRef();
+  const inputPC = useRef();
+  const inputPP = useRef();
+  const inputPE = useRef();
+  const inputPO = useRef();
+  const inputPL = useRef();
+
   function irParaHomeLogin() {
     navigate('/homelogin')
   }
@@ -319,10 +332,21 @@ function CriarFicha() {
               <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano3} />
             </div>
           </div>
-          <textarea className="campo tracos-personalidade" placeholder="Traços de Personalidade" ref={inputTracosPersonalidade}/>
-          <textarea className="campo ideais" placeholder="Ideais" ref={inputIdeais}/>
-          <textarea className="campo vinculos" placeholder="Vínculos" ref={inputVinculos}/>
-          <textarea className="campo fraquezas" placeholder="Fraquezas" ref={inputFraquezas}/>
+          <textarea className="campo tracos-personalidade" placeholder="Traços de Personalidade" ref={inputTracosPersonalidade} />
+          <textarea className="campo ideais" placeholder="Ideais" ref={inputIdeais} />
+          <textarea className="campo vinculos" placeholder="Vínculos" ref={inputVinculos} />
+          <textarea className="campo fraquezas" placeholder="Fraquezas" ref={inputFraquezas} />
+          <textarea className="campo ataques-conjuracao" placeholder="Ataques e Conjuração" ref={inputAtaquesConjuracao} />
+          <textarea className="campo caracteristicas-talentos" placeholder="Características & Talentos" ref={inputCaracteristicasTalentos} />
+          <input className="campo sabedoria-passiva" type="text" placeholder="Sabedoria Passiva (Percepção)" ref={inputSabedoriaPassiva}/>
+          <textarea  className="campo proficiencias-idiomas" placeholder="Outras Proficiências & Idiomas" ref={inputProficienciasIdiomas}/>
+          {/* Moedas */}
+          <input className="campo moeda-pc" type="text" placeholder="PC" ref={inputPC} />
+          <input className="campo moeda-pp" type="text" placeholder="PP" ref={inputPP} />
+          <input className="campo moeda-pe" type="text" placeholder="PE" ref={inputPE} />
+          <input className="campo moeda-po" type="text" placeholder="PO" ref={inputPO} />
+          <input className="campo moeda-pl" type="text" placeholder="PL" ref={inputPL} />
+          <textarea className="campo equipamento" placeholder="Equipamento" ref={inputEquipamento}/>
         </div>
         <button className="botaoSalvar">Salvar</button>
       </div>

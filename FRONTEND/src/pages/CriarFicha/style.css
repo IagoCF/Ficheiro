@@ -110,71 +110,84 @@ body {
     top: 20%;
     left: 7.4%;
     width: 4%;
+    text-align: center;
 }
 
 .campo.forca {
     top: 23.2%;
     left: 7.4%;
     width: 4%;
+    text-align: center;
 }
 
 .campo.destrezamod {
     top: 29%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
+
 .campo.destreza {
     top: 32.2%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.constituicaomod {
     top: 38%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.constituicao {
     top: 41.2%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.inteligenciamod {
     top: 47%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.inteligencia {
     top: 50.2%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.sabedoriamod {
     top: 56%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.sabedoria {
     top: 59.2%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.carismamod {
     top: 65%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 .campo.carisma {
     top: 68.2%;
     left: 7.2%;
     width: 4.3%;
+    text-align: center;
 }
 
 /* Defesa e Vida */
@@ -182,18 +195,21 @@ body {
     top: 19.4%;
     left: 37.8%;
     width: 5.5%;
+    text-align: center;
 }
 
 .campo.iniciativa {
     top: 19.4%;
     left: 47%;
     width: 5.5%;
+    text-align: center;
 }
 
 .campo.deslocamento {
     top: 19.4%;
     left: 56.6%;
     width: 5.5%;
+    text-align: center;
 }
 
 .campo.pvMax {
@@ -206,12 +222,14 @@ body {
     top: 27.2%;
     left: 40%;
     width: 19.8%;
+    text-align: center;
 }
 
 .campo.pvTemp {
     top: 34%;
     left: 40%;
     width: 19.8%;
+    text-align: center;
 }
 
 /* História */
@@ -248,7 +266,7 @@ body {
 .campo.salvaguardas {
     position: absolute;
     top: 25.2%;
-    left: 15.4%;
+    left: 15.7%;
     width: 18%;
     background: transparent;
     display: flex;
@@ -271,7 +289,7 @@ body {
 .campo.pericias {
     position: absolute;
     top: 39.7%;
-    left: 15.4%;
+    left: 15.7%;
     width: 18%;
     background: transparent;
     display: flex;
@@ -375,8 +393,8 @@ body {
 /* Dado de Vida - Total */
 .campo.dado-vida-total {
     position: absolute;
-    top: 39.7%;
-    left: 40%;
+    top: 39.6%;
+    left: 40.4%;
     width: 5%;
 }
 
@@ -385,6 +403,7 @@ body {
     top: 41.8%;
     left: 40.5%;
     width: 5%;
+    text-align: center;
 }
 
 .campo.ataques {
@@ -462,6 +481,116 @@ body {
     left: 67.5%;
     width: 28%;
     height: 5.4%;
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+
+.campo.caracteristicas-talentos {
+    position: absolute;
+    top: 48.5%;      /* ajuste conforme necessário para alinhar com sua ficha */
+    left: 66%;     /* ajuste conforme necessário */
+    width: 30%;
+    height: 47%;   /* ajuste conforme necessário para cobrir o quadro */
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+
+.campo.ataques-conjuracao {
+    position: absolute;
+    top: 57%;      /* ajuste conforme necessário para alinhar com sua ficha */
+    left: 35%;     /* ajuste conforme necessário */
+    width: 30%;
+    height: 15%;   /* ajuste conforme necessário para cobrir o quadro */
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+
+/* Sabedoria Passiva */
+.campo.sabedoria-passiva {
+    position: absolute;
+    top: 73.6%;
+    left: 4.2%;
+    width: 5.5%;
+    height: 4%;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+/* Outras Proficiências & Idiomas */
+.campo.proficiencias-idiomas {
+    position: absolute;
+    top: 78.2%;
+    left: 4.2%;
+    width: 30%;
+    height: 17%;
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+
+/* Moedas */
+.campo.moeda-pc {
+    position: absolute;
+    top: 75.4%;
+    left: 36.7%;
+    width: 6.2%;
+    text-align: center;
+}
+.campo.moeda-pp {
+    position: absolute;
+    top: 78.8%;
+    left: 36.7%;
+    width: 6.2%;
+    text-align: center;
+}
+.campo.moeda-pe {
+    position: absolute;
+    top: 82%;
+    left: 36.7%;
+    width: 6.2%;
+    text-align: center;
+}
+.campo.moeda-po {
+    position: absolute;
+    top: 85.3%;
+    left: 36.7%;
+    width: 6.2%;
+    text-align: center;
+}
+.campo.moeda-pl {
+    position: absolute;
+    top: 88.6%;
+    left: 36.7%;
+    width: 6.2%;
+    text-align: center;
+}
+
+/* Equipamento */
+.campo.equipamento {
+    position: absolute;
+    top: 74.5%;
+    left: 43%;
+    width: 22.5%;
+    height: 21%;
     resize: none;
     background: transparent;
     border: none;
