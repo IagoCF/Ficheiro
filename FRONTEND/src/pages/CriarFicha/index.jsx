@@ -90,6 +90,32 @@ function CriarFicha() {
   const inputNumeroPericiaReligiao = useRef();
   const inputPericiaSobrevivencia = useRef();
   const inputNumeroPericiaSobrevivencia = useRef();
+  // Salvaguarda contra morte - Sucessos e Falhas
+  const inputSucessoMorte1 = useRef();
+  const inputSucessoMorte2 = useRef();
+  const inputSucessoMorte3 = useRef();
+  const inputFalhaMorte1 = useRef();
+  const inputFalhaMorte2 = useRef();
+  const inputFalhaMorte3 = useRef();
+
+  const inputDadoVidaTotal = useRef();
+  const inputDadoVida = useRef();
+
+  // Ataques
+  const inputAtaqueNome1 = useRef();
+  const inputAtaqueBonus1 = useRef();
+  const inputAtaqueDano1 = useRef();
+  const inputAtaqueNome2 = useRef();
+  const inputAtaqueBonus2 = useRef();
+  const inputAtaqueDano2 = useRef();
+  const inputAtaqueNome3 = useRef();
+  const inputAtaqueBonus3 = useRef();
+  const inputAtaqueDano3 = useRef();
+
+  const inputTracosPersonalidade = useRef();
+  const inputIdeais = useRef();
+  const inputVinculos = useRef();
+  const inputFraquezas = useRef();
 
   function irParaHomeLogin() {
     navigate('/homelogin')
@@ -258,6 +284,45 @@ function CriarFicha() {
               <input type="text" className="numero-pericia numero-sobrevivencia" maxLength={2} ref={inputNumeroPericiaSobrevivencia} />
             </div>
           </div>
+          {/* Salvaguardas contra morte */}
+          <div className="campo salvaguarda-morte">
+            <div className="linha-salvaguarda-morte">
+              <span className="label-salvaguarda-morte"></span>
+              <input type="checkbox" className="bolinha bolinha-sucesso-morte1" ref={inputSucessoMorte1} />
+              <input type="checkbox" className="bolinha bolinha-sucesso-morte2" ref={inputSucessoMorte2} />
+              <input type="checkbox" className="bolinha bolinha-sucesso-morte3" ref={inputSucessoMorte3} />
+            </div>
+            <div className="linha-salvaguarda-morte">
+              <span className="label-salvaguarda-morte"></span>
+              <input type="checkbox" className="bolinha bolinha-falha-morte1" ref={inputFalhaMorte1} />
+              <input type="checkbox" className="bolinha bolinha-falha-morte2" ref={inputFalhaMorte2} />
+              <input type="checkbox" className="bolinha bolinha-falha-morte3" ref={inputFalhaMorte3} />
+            </div>
+          </div>
+          <input className="campo dado-vida-total" type="text" placeholder="Total" ref={inputDadoVidaTotal} />
+          <input className="campo dado-vida" type="text" placeholder="Total" ref={inputDadoVida} />
+          {/* Ataques */}
+          <div className="campo ataques">
+            <div className="linha-ataque">
+              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome1} />
+              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus1} />
+              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano1} />
+            </div>
+            <div className="linha-ataque">
+              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome2} />
+              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus2} />
+              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano2} />
+            </div>
+            <div className="linha-ataque">
+              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome3} />
+              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus3} />
+              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano3} />
+            </div>
+          </div>
+          <textarea className="campo tracos-personalidade" placeholder="Traços de Personalidade" ref={inputTracosPersonalidade}/>
+          <textarea className="campo ideais" placeholder="Ideais" ref={inputIdeais}/>
+          <textarea className="campo vinculos" placeholder="Vínculos" ref={inputVinculos}/>
+          <textarea className="campo fraquezas" placeholder="Fraquezas" ref={inputFraquezas}/>
         </div>
         <button className="botaoSalvar">Salvar</button>
       </div>

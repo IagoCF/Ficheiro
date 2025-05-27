@@ -348,6 +348,128 @@ body {
     text-align: center;
 }
 
+.campo.salvaguarda-morte {
+    position: absolute;
+    top: 39.9%;
+    left: 47.9%;
+    width: 14.7%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+    background: transparent;
+}
+
+.linha-salvaguarda-morte {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.label-salvaguarda-morte {
+    min-width: 60px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Dado de Vida - Total */
+.campo.dado-vida-total {
+    position: absolute;
+    top: 39.7%;
+    left: 40%;
+    width: 5%;
+}
+
+.campo.dado-vida {
+    position: absolute;
+    top: 41.8%;
+    left: 40.5%;
+    width: 5%;
+}
+
+.campo.ataques {
+    position: absolute;
+    top: 49.3%;    /* ajuste conforme necessário */
+    left: 35.9%;   /* ajuste conforme necessário */
+    width: 27.7%;    /* ajuste conforme necessário */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: transparent;
+}
+
+.linha-ataque {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    margin-bottom: 4px;
+}
+
+.ataque-nome {
+    width: 39%;
+}
+.ataque-bonus {
+    width: 20%;
+    padding-left: 8px;
+}
+.ataque-dano {
+    width: 40%;
+    padding-left: 11px;
+}
+
+.campo.tracos-personalidade {
+    position: absolute;
+    top: 17%;
+    left: 67.5%;
+    width: 28%;
+    height: 7.5%;
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+.campo.ideais {
+    position: absolute;
+    top: 25.4%;
+    left: 67.5%;
+    width: 28%;
+    height: 5.4%;
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+.campo.vinculos {
+    position: absolute;
+    top: 32.5%;
+    left: 67.5%;
+    width: 28%;
+    height: 5.4%;
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+.campo.fraquezas {
+    position: absolute;
+    top: 39.4%;
+    left: 67.5%;
+    width: 28%;
+    height: 5.4%;
+    resize: none;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    color: #222;
+    padding: 8px 10px;
+}
+
 .botaoSalvar {
     display: block;
     margin: 40px auto 0 auto; /* 40px de espaço acima, centraliza horizontalmente */
