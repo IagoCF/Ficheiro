@@ -1,23 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import './style.css'
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import api from '../../services/api'
 
 function MinhasFichas() {
   const navigate = useNavigate()
   const userId = localStorage.getItem('usuario')
-  const userApelido = localStorage.getItem('apelido')
-  const userEmail = localStorage.getItem('email')
-  const userIdade = localStorage.getItem('idade')
-  const userIngresso = localStorage.getItem('ingresso')
-  //
-  const inputApelido = useRef();
-  const inputEmail = useRef();
-  const inputIdade = useRef();
-  const inputNovaSenha = useRef();
-  const inputSenha = useRef();
-  const inputConfirmarSenha = useRef();
+  const [fichas, setFichas] = useState([])
 
   function irParaHomeLogin() {
     navigate('/homelogin')
@@ -30,6 +20,19 @@ function MinhasFichas() {
   function irParaCriarFicha() {
     navigate('/criarficha')
   }
+
+  // Carregar fichas do usuário ao entrar na página
+  useEffect(() => {
+    async function carregarFichas() {
+      try {
+        const response = await api.get(`/ficha?usuarioId=${userId}`)
+        setFichas(response.data)
+      } catch (error) {
+        setFichas([])
+      }
+    }
+    carregarFichas()
+  }, [userId])
 
   return (
     <div className="background2">
@@ -50,10 +53,23 @@ function MinhasFichas() {
           <p>Ver minhas fichas</p>
         </div>
         <div className="criarficha">
+          <div className="grid-fichas">
+            {fichas.length === 0 ? (
+              <p className="nenhuma-ficha">Nenhuma ficha encontrada.</p>
+            ) : (
+              fichas.map((ficha) => (
+                <div className="card-ficha" key={ficha.id}>
+                  <h3>{ficha.nomePersonagem}</h3>
+                  <p>Classe: {ficha.classe}</p>
+                  <p>Raça: {ficha.raca}</p>
+                  <p>Nível: {ficha.nivel}</p>
+                </div>
+              ))
+            )}
+          </div>
         </div>
         <button className="botao-nova-ficha" onClick={irParaCriarFicha}>Nova Ficha</button>
       </div>
-
     </div>
   )
 }
