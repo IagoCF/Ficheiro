@@ -71,6 +71,9 @@ function EditarPerfil() {
     try {
       // Envia os dados atualizados para o backend
       await api.put(`/usuarios/${userId}`, dadosAtualizados);
+      if (apelido) localStorage.setItem('apelido', apelido);
+      if (email) localStorage.setItem('email', email);
+      if (idade) localStorage.setItem('idade', idade);
       alert('Alterações salvas com sucesso!');
 
       // Limpa os campos após o sucesso
@@ -86,37 +89,37 @@ function EditarPerfil() {
     }
   }
 
-async function excluirPerfil() {
-  const senhaAtual = inputSenha.current.value.trim();
+  async function excluirPerfil() {
+    const senhaAtual = inputSenha.current.value.trim();
 
-  if (!senhaAtual) {
-    alert('Para excluir o perfil, insira sua senha atual.');
-    return;
-  }
-
-  // Confirmação do usuário
-  if (!window.confirm('Tem certeza que deseja excluir seu perfil?')) {
-    return;
-  }
-
-  try {
-    // Envia a senha atual para validação no backend
-    const response = await api.delete(`/usuarios/${userId}`, {
-      data: { senhaAtual }
-    });
-
-    if(response.status = 200) {
-      alert('Perfil excluído!');
-      localStorage.clear();
-      window.location.replace('/login');  
-    } else {
-      alert(response.data.erro || 'Senha atual incorreta ou erro ao excluir perfil.');
+    if (!senhaAtual) {
+      alert('Para excluir o perfil, insira sua senha atual.');
+      return;
     }
-  } catch (error) {
-    console.error('Erro ao excluir perfil:', error);
-    alert('Senha atual incorreta ou erro ao excluir perfil.');
+
+    // Confirmação do usuário
+    if (!window.confirm('Tem certeza que deseja excluir seu perfil?')) {
+      return;
+    }
+
+    try {
+      // Envia a senha atual para validação no backend
+      const response = await api.delete(`/usuarios/${userId}`, {
+        data: { senhaAtual }
+      });
+
+      if (response.status = 200) {
+        alert('Perfil excluído!');
+        localStorage.clear();
+        window.location.replace('/login');
+      } else {
+        alert(response.data.erro || 'Senha atual incorreta ou erro ao excluir perfil.');
+      }
+    } catch (error) {
+      console.error('Erro ao excluir perfil:', error);
+      alert('Senha atual incorreta ou erro ao excluir perfil.');
+    }
   }
-}
 
   return (
     <div className="background2">
