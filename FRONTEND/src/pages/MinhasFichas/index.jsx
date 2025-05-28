@@ -59,10 +59,13 @@ function MinhasFichas() {
             ) : (
               fichas.map((ficha) => (
                 <div className="card-ficha" key={ficha.id}>
-                  <h3>{ficha.nomePersonagem}</h3>
-                  <p>Classe: {ficha.classe}</p>
-                  <p>Raça: {ficha.raca}</p>
-                  <p>Nível: {ficha.nivel}</p>
+                  <div className="ficha-imagem-placeholder"></div>
+                  <div className="ficha-info">
+                    <h3>{ficha.nomePersonagem}</h3>
+                    <p>Classe: {ficha.classe}</p>
+                    <p>Raça: {ficha.raca}</p>
+                    <p>Nível: {ficha.nivel}</p>
+                  </div>
                 </div>
               ))
             )}

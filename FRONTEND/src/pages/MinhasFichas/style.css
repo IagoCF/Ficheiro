@@ -160,10 +160,32 @@ button {
     box-shadow: 0 2px 8px #0001;
     padding: 10px 16px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Alterado para linha */
+    align-items: center;
     height: 120px;
     min-width: 0;
     word-break: break-word;
+}
+
+.ficha-imagem-placeholder {
+    width: 90px;
+    height: 90px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 12px;
+    border: 1px dashed #bbb;
+}
+
+.ficha-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .nenhuma-ficha {
