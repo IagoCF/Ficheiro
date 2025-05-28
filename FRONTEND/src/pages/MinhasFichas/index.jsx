@@ -50,8 +50,8 @@ function MinhasFichas() {
           <p>Ver minhas fichas</p>
         </div>
         <div className="criarficha">
-        <button onClick={irParaCriarFicha}>Nova Ficha</button>
         </div>
+        <button className="botao-nova-ficha" onClick={irParaCriarFicha}>Nova Ficha</button>
       </div>
 
     </div>
