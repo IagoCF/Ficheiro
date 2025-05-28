@@ -68,8 +68,8 @@ function Perfil() {
               <p>Idade: {userIdade}</p>
               <p>Membro desde: {userIngresso}</p>
               <button onClick={irParaEditarPerfil}>Editar</button>
-              <button onClick={MudarUsuario}>Mudar conta</button>
               <button onClick={irParaMinhasFichas}>Minhas Fichas</button>
+              <button onClick={MudarUsuario}>Mudar conta</button>
           </div>
         </div>
 
