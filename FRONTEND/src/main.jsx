@@ -12,6 +12,7 @@ import EditarPerfil from './pages/EditarPerfil'
 import MinhasFichas from './pages/MinhasFichas'
 import CriarFicha from './pages/CriarFicha'
 import Salas from './pages/Salas'
+import MinhasSalas from './pages/MinhasSalas'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/minhasfichas" element={<RotaPrivada> <MinhasFichas /> </RotaPrivada>}/>
         <Route path="/criarficha" element={<RotaPrivada> <CriarFicha /> </RotaPrivada>}/>
         <Route path="/salas" element={<RotaPrivada> <Salas /> </RotaPrivada>}/>
+        <Route path="/minhassalas" element={<RotaPrivada> <MinhasSalas /> </RotaPrivada>}/>
       </Routes>
     </Router>
   </StrictMode>
