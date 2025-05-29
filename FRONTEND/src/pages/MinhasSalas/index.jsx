@@ -7,7 +7,7 @@ import api from '../../services/api'
 function MinhasSalas() {
   const navigate = useNavigate()
   const userId = localStorage.getItem('usuario')
-  const [fichas, setFichas] = useState([])
+  const [salas, setSalas] = useState([])
 
   function irParaHomeLogin() {
     navigate('/homelogin')
@@ -27,16 +27,25 @@ function MinhasSalas() {
 
   // Carregar fichas do usuário ao entrar na página
   useEffect(() => {
-    async function carregarFichas() {
+    async function carregarSalas() {
       try {
-        const response = await api.get(`/ficha?usuarioId=${userId}`)
-        setFichas(response.data)
+        const response = await api.get(`/sala?usuarioId=${userId}`)
+        setSalas(response.data)
       } catch (error) {
-        setFichas([])
+        setSalas([])
       }
     }
-    carregarFichas()
+    carregarSalas()
   }, [userId])
+
+  function formatarData(dataString) {
+    if (!dataString) return '';
+    const data = new Date(dataString);
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  }
 
   return (
     <div className="background2">
@@ -46,8 +55,8 @@ function MinhasSalas() {
         </div>
         <nav>
           <a onClick={irParaHomeLogin} style={{ cursor: 'pointer' }}>Home</a>
-          <a onClick={irParaSalas} style={{ cursor: 'pointer' }}>Salas</a>
-          <a onClick={irParaPerfil} style={{ cursor: 'pointer' }} className="botaoSelecionado">Perfil</a>
+          <a onClick={irParaSalas} style={{ cursor: 'pointer' }} className="botaoSelecionado">Salas</a>
+          <a onClick={irParaPerfil} style={{ cursor: 'pointer' }}>Perfil</a>
         </nav>
       </header>
 
@@ -58,24 +67,24 @@ function MinhasSalas() {
         </div>
         <div className="criarficha">
           <div className="grid-fichas">
-            {fichas.length === 0 ? (
-              <p className="nenhuma-ficha">Nenhuma ficha encontrada.</p>
+            {salas.length === 0 ? (
+              <p className="nenhuma-ficha">Nenhuma sala encontrada.</p>
             ) : (
-              fichas.map((ficha) => (
-                <div className="card-ficha" key={ficha.id}>
+              salas.map((sala) => (
+                <div className="card-ficha" key={sala.id}>
                   <div className="ficha-imagem-placeholder"></div>
                   <div className="ficha-info">
-                    <h3>{ficha.nomePersonagem}</h3>
-                    <p>Classe: {ficha.classe}</p>
-                    <p>Raça: {ficha.raca}</p>
-                    <p>Nível: {ficha.nivel}</p>
+                    <h3>{sala.nome_sala}</h3>
+                    <p>Sistema: {sala.nome_sistema}</p>
+                    <p>Data de Criação: {formatarData(sala.criada)}</p>
+                    <p>Id da Sala: {sala.id}</p>
                   </div>
                 </div>
               ))
             )}
           </div>
         </div>
-        <button className="botao-nova-ficha" onClick={irParaCriarFicha}>Nova Ficha</button>
+        <button className="botao-nova-ficha" /*onClick={irParaCriarSala}*/>Nova Sala</button>
       </div>
     </div>
   )
