@@ -7,7 +7,6 @@
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    overflow: hidden;
 }
 
 /* Imagem de fundo */
@@ -25,6 +24,7 @@ body, html {
     background-position: top center;
     height: 100vh;
     position: relative;
+    overflow: hidden;
 }
 
 /* Header fixo no topo */

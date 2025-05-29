@@ -154,13 +154,7 @@ function EditarPerfil() {
             <input placeholder="Alterar senha" name="senhaNova" type="password" ref={inputNovaSenha} />
             <input placeholder="Confirmar nova senha" name="senhaNovaConfirmar" type="password" ref={inputConfirmarSenha} />
             <input placeholder="Senha atual" name="senhaAtual" type="password" ref={inputSenha} />
-            <button
-              type="button"
-              className="btn-excluir"
-              onClick={excluirPerfil}
-            >
-              Excluir perfil
-            </button>
+            <button type="button" className="btn-excluir" onClick={excluirPerfil}>Excluir perfil</button>
           </div>
         </form>
       </div>

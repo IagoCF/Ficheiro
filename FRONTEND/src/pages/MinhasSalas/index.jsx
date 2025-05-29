@@ -17,8 +17,8 @@ function MinhasSalas() {
     navigate('/perfil')
   }
 
-  function irParaCriarFicha() {
-    navigate('/criarficha')
+  function irParaCriarSala() {
+    navigate('/criarsala')
   }
 
   function irParaSalas() {
@@ -84,7 +84,7 @@ function MinhasSalas() {
             )}
           </div>
         </div>
-        <button className="botao-nova-ficha" /*onClick={irParaCriarSala}*/>Nova Sala</button>
+        <button className="botao-nova-ficha" onClick={irParaCriarSala}>Nova Sala</button>
       </div>
     </div>
   )

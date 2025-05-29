@@ -17,8 +17,8 @@ body {
 }
 
 .fundo2 {
-    height: 170vh;
-    display: block; /* ou flex-direction: column, se preferir */
+    height: calc(100vh - 70px); /* ajuste conforme a altura do seu header */
+    display: block;
     background-color: #FFFFFF;
     width: 75%;
     margin: auto;
@@ -26,6 +26,7 @@ body {
     box-shadow: none;
     gap: 40px;
     position: relative;
+    overflow-y: auto; /* rolagem só aqui */
 }
 
 .ficha-container {
@@ -601,7 +602,7 @@ body {
 
 .botaoSalvar {
     display: block;
-    margin: 40px auto 0 auto; /* 40px de espaço acima, centraliza horizontalmente */
+    margin: 40px auto 40px auto; /* 40px acima e 40px abaixo */
     color: #fff;
     border-radius: 30px;
     background-color: #0D603E;
