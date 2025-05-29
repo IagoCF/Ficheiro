@@ -11,6 +11,7 @@ import './mainindex.css'
 import EditarPerfil from './pages/EditarPerfil'
 import MinhasFichas from './pages/MinhasFichas'
 import CriarFicha from './pages/CriarFicha'
+import Salas from './pages/Salas'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/editarperfil" element={<RotaPrivada> <EditarPerfil /> </RotaPrivada>}/>
         <Route path="/minhasfichas" element={<RotaPrivada> <MinhasFichas /> </RotaPrivada>}/>
         <Route path="/criarficha" element={<RotaPrivada> <CriarFicha /> </RotaPrivada>}/>
+        <Route path="/salas" element={<RotaPrivada> <Salas /> </RotaPrivada>}/>
       </Routes>
     </Router>
   </StrictMode>

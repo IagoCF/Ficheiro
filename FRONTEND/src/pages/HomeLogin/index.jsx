@@ -12,6 +12,10 @@ function HomeLogin() {
     function irParaPerfil() {
         navigate('/perfil')
       }
+    
+    function irParaSalas() {
+        navigate('/salas')
+      }
 
     return (
         <div className="background2">
@@ -21,7 +25,7 @@ function HomeLogin() {
           </div>
           <nav>
             <a href="#" className="botaoSelecionado">Home</a>
-            <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Salas</a>
+            <a onClick={irParaSalas} style={{ cursor: 'pointer' }}>Salas</a>
             <a onClick={irParaPerfil} style={{ cursor: 'pointer' }}>Perfil</a>
           </nav>
         </header>

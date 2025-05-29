@@ -31,6 +31,10 @@ function EditarPerfil() {
     navigate('/perfil')
   }
 
+  function irParaSalas() {
+        navigate('/salas')
+  }
+
   async function SalvarAlteracao() {
     const apelido = inputApelido.current.value.trim();
     const email = inputEmail.current.value.trim();
@@ -129,7 +133,7 @@ function EditarPerfil() {
         </div>
         <nav>
           <a onClick={irParaHomeLogin} style={{ cursor: 'pointer' }}>Home</a>
-          <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Salas</a>
+          <a onClick={irParaSalas} style={{ cursor: 'pointer' }}>Salas</a>
           <a onClick={irParaPerfil} style={{ cursor: 'pointer' }} className="botaoSelecionado">Perfil</a>
         </nav>
       </header>

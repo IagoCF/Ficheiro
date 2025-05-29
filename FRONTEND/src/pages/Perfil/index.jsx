@@ -30,6 +30,10 @@ function Perfil() {
     function irParaMinhasFichas() { 
         navigate('/minhasfichas')
       }
+    
+    function irParaSalas() {
+        navigate('/salas')
+      }
 
     function MudarUsuario() {
         // Remove os dados do usuário do localStorage
@@ -51,7 +55,7 @@ function Perfil() {
           </div>
           <nav>
             <a onClick={irParaHomeLogin} style={{ cursor: 'pointer' }}>Home</a>
-            <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Salas</a>
+            <a onClick={irParaSalas} style={{ cursor: 'pointer' }}>Salas</a>
             <a style={{ cursor: 'pointer' }} className="botaoSelecionado">Perfil</a>
           </nav>
         </header>

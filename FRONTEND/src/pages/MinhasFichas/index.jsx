@@ -21,6 +21,10 @@ function MinhasFichas() {
     navigate('/criarficha')
   }
 
+  function irParaSalas() {
+    navigate('/salas')
+  }
+
   // Carregar fichas do usuário ao entrar na página
   useEffect(() => {
     async function carregarFichas() {
@@ -42,7 +46,7 @@ function MinhasFichas() {
         </div>
         <nav>
           <a onClick={irParaHomeLogin} style={{ cursor: 'pointer' }}>Home</a>
-          <a /*onClick={}*/ style={{ cursor: 'pointer' }}>Salas</a>
+          <a onClick={irParaSalas} style={{ cursor: 'pointer' }}>Salas</a>
           <a onClick={irParaPerfil} style={{ cursor: 'pointer' }} className="botaoSelecionado">Perfil</a>
         </nav>
       </header>
