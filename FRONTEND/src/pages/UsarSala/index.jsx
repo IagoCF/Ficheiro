@@ -8,10 +8,10 @@ function UsarSala() {
   const nomeSala = "Sala dos Heróis"
   const sistema = "Dungeons & Dragons"
   const integrantes = [
-    { nome: "Alice" },
-    { nome: "Bob" },
-    { nome: "Carlos" },
-    { nome: "Diana" }
+    { nome: "Fulanovsky", funcao: "Mestre", avatar: "https://randomuser.me/api/portraits/men/1.jpg", selecionado: false, mestre: true },
+    { nome: "Macaco A", funcao: "Ajudante", avatar: "https://randomuser.me/api/portraits/men/2.jpg", selecionado: false },
+    { nome: "Benson da Sil...", funcao: "Jogador", avatar: "https://randomuser.me/api/portraits/men/3.jpg", selecionado: false },
+    { nome: "Matador de g...", funcao: "Espectador", avatar: "https://randomuser.me/api/portraits/men/4.jpg", selecionado: false }
   ]
 
   function irParaHomeLogin() {
@@ -41,7 +41,13 @@ function UsarSala() {
           <div className="menu-integrantes">
             <ul>
               {integrantes.map((int, idx) => (
-                <li key={idx} className="integrante">{int.nome}</li>
+                <li key={idx} className={`integrante-card${int.selecionado ? " selecionado" : ""}`}>
+                  <img className="integrante-avatar" src={int.avatar} alt={int.nome} />
+                  <div className="integrante-info">
+                    <span className="integrante-nome"> {int.nome} {int.mestre && <span className="integrante-coroa"> 👑</span>}</span>
+                    <span className="integrante-funcao">{int.funcao}</span>
+                  </div>
+                </li>
               ))}
             </ul>
           </div>
