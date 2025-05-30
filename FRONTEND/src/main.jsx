@@ -14,6 +14,7 @@ import CriarFicha from './pages/CriarFicha'
 import Salas from './pages/Salas'
 import MinhasSalas from './pages/MinhasSalas'
 import CriarSala from './pages/CriarSala'
+import UsarSala from './pages/UsarSala'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/salas" element={<RotaPrivada> <Salas /> </RotaPrivada>}/>
         <Route path="/minhassalas" element={<RotaPrivada> <MinhasSalas /> </RotaPrivada>}/>
         <Route path="/criarsala" element={<RotaPrivada> <CriarSala /> </RotaPrivada>}/>
+        <Route path="/usarsala" element={<RotaPrivada> <UsarSala /> </RotaPrivada>}/>
       </Routes>
     </Router>
   </StrictMode>

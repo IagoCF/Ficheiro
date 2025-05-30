@@ -22,6 +22,10 @@ function CriarSala() {
         navigate('/salas')
     }
 
+    function irParaUsarSala() {
+        navigate('/usarsala')
+    }
+
     return (
         <div className="background2">
             <header>
@@ -54,7 +58,7 @@ function CriarSala() {
                         <p className="imagem-label">Imagem da sala</p>
                     </div>
                 </div>
-                <button type="button" className="btn-salvar" /*onClick={SalvarAlteracao}*/>Salvar</button>
+                <button type="button" className="btn-salvar" onClick={irParaUsarSala}>Salvar</button>
             </div>
         </div>
     )
