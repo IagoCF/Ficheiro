@@ -34,8 +34,6 @@ function CriarSala() {
                     <a onClick={irParaPerfil} style={{ cursor: 'pointer' }}>Perfil</a>
                 </nav>
             </header>
-
-
             <div className="fundo">
                 <div className="titulo">
                     <h1>Salas</h1>
@@ -43,37 +41,16 @@ function CriarSala() {
                 </div>
                 <div className="infoSala">
                     <form>
-                        <input
-                            placeholder="Nome da Sala"
-                            name="nomeSala"
-                            type="text"
-                            className="inputCriarSala"
-                        />
-                        <select
-                            id="sistema"
-                            name="sistema"
-                            className="inputCriarSala"
-                        >
-                            <option value="D&D 5e">Dungeons & Dragons</option>
+                        <input placeholder="Nome da Sala" name="nomeSala" type="text" className="inputCriarSala"/>
+                        <select id="sistema" name="sistema" className="inputCriarSala">
+                            <option value="1">Dungeons & Dragons</option>
                         </select>
-                        <textarea
-                            id="descricao"
-                            name="descricao"
-                            className="descricaoSala"
-                            rows={6}
-                        />
-                        <input
-                            placeholder="Senha (opcional)"
-                            name="senha"
-                            type="password"
-                            className="inputCriarSala"
-                        />
+                        <textarea id="descricao" name="descricao" className="descricaoSala" placeholder="Descrição" rows={4} style={{ resize: "none" }}/>
+                        <input placeholder="Senha (opcional)" name="senha" type="password" className="inputCriarSala"/>
                     </form>
                     <div className="linha-vertical"></div>
                     <div className="imagemSala">
-                        <div className="imagem-placeholder">
-                            <span>+</span>
-                        </div>
+                        <div className="imagem-placeholder"> <span>+</span> </div>
                         <p className="imagem-label">Imagem da sala</p>
                     </div>
                 </div>
