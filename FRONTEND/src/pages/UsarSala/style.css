@@ -254,3 +254,91 @@ nav a:hover {
 .botao-sair:hover {
     background: #b71c1c;
 }
+
+.botoes-icones-bottom {
+    position: fixed;
+    left: 50%;
+    bottom: 32px;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.15);
+    display: flex;
+    gap: 32px;
+    padding: 16px 32px;
+    z-index: 10;
+    animation: fadeIn 0.4s;
+}
+
+.icone-botao {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #222;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icone-botao:hover {
+    background: #f0f0f0;
+    color: #0D603E;
+}
+
+.fade-in {
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+.card-ficha.draggable-card {
+    width: 320px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 0;
+    word-break: break-word;
+    cursor: grab;
+    user-select: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card-ficha.draggable-card:active {
+    cursor: grabbing;
+}
+
+.ficha-imagem-placeholder {
+    width: 90px;
+    height: 90px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 12px;
+    border: 1px dashed #bbb;
+}
+
+.ficha-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
