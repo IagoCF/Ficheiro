@@ -12,6 +12,7 @@ function UsarSala() {
     { nome: "Benson da Sil...", funcao: "Jogador", avatar: "https://randomuser.me/api/portraits/men/3.jpg", selecionado: false },
     { nome: "Matador de g...", funcao: "Espectador", avatar: "https://randomuser.me/api/portraits/men/4.jpg", selecionado: false }
   ]
+  const idSala = "#000001"; // Exemplo, substitua pelo ID real
 
   function irParaHomeLogin() {
     navigate('/homelogin')
@@ -55,6 +56,10 @@ function UsarSala() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="menu-rodape">
+            <button onClick={irParaSalas} className="botao-sair">Sair da sala</button>
+            <span className="sala-id">{idSala}</span>
           </div>
         </aside>
         <div className="conteudoSala">

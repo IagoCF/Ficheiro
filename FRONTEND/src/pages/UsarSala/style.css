@@ -66,17 +66,18 @@ nav a:hover {
 }
 
 .menu-vertical {
-    width: 18%; /* diminuiu o width */
-    background: #fff; /* fundo branco para a lista */
+    width: 18%;
+    background: #fff;
     color: #222;
     padding: 0 0 24px 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     min-height: 100vh;
-    box-shadow: 2px 0 16px 0 rgba(0,0,0,0.40); /* box-shadow à direita */
+    box-shadow: 2px 0 16px 0 rgba(0,0,0,0.40);
     position: relative;
     z-index: 2;
+    justify-content: flex-start;
 }
 
 .menu-header {
@@ -219,4 +220,37 @@ nav a:hover {
 
 .botao-centro:hover {
     background: #0a4d31;
+}
+
+.menu-rodape {
+    width: 100%;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.sala-id {
+    font-size: 0.95rem;
+    color: #888;
+    user-select: all;
+    letter-spacing: 1px;
+}
+
+.botao-sair {
+    width: 80%;
+    padding: 10px 0;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botao-sair:hover {
+    background: #b71c1c;
 }
