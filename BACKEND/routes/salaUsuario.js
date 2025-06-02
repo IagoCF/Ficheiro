@@ -1,7 +1,8 @@
 import express from 'express';
-import { vincularSalaUsuario } from '../controllers/salaUsuarioController.js';
+import { vincularSalaUsuario, usuarioVinculadoSala } from '../controllers/salaUsuarioController.js';
 
 const router = express.Router();
 router.post('/', vincularSalaUsuario);
+router.get('/verificar', usuarioVinculadoSala);
 
 export default router;

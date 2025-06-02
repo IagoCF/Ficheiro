@@ -18,6 +18,11 @@ function Salas() {
   const [senha, setSenha] = useState('')
   const [erro, setErro] = useState('')
 
+  if (!userId) {
+    setErro('Usuário não autenticado. Faça login novamente.')
+    return
+  }
+
   function irParaHomeLogin() {
     navigate('/homelogin')
   }
@@ -53,7 +58,6 @@ function Salas() {
     setErro('')
 
     try {
-      // Verifica se a sala existe e se precisa de senha
       const response = await api.get(`/sala/verificar?idSala=${salaId}`)
       if (!response.data.existe) {
         setErro('Sala não encontrada.')
@@ -64,7 +68,6 @@ function Salas() {
           setErro('Esta sala requer senha.')
           return
         }
-        // Verifique a senha
         const resSenha = await api.post('/sala/entrar', { idSala: salaId, senha })
         if (!resSenha.data.sucesso) {
           setErro('Senha incorreta.')
@@ -72,12 +75,14 @@ function Salas() {
         }
       }
 
-      // Vincula o usuário à sala (caso ainda não seja vinculado)
-      const idUsuario = localStorage.getItem('usuario')
-      await api.post('/salaUsuario', {
-        idUsuario,
-        idSala: salaId
-      })
+      // Só vincula se ainda não estiver vinculado
+      const vinculo = await api.get(`/salaUsuario/verificar?idUsuario=${userId}&idSala=${salaId}`)
+      if (!vinculo.data.vinculado) {
+        await api.post('/salaUsuario', {
+          idUsuario: userId,
+          idSala: salaId
+        })
+      }
 
       localStorage.setItem('sala', salaId)
       fecharModal()

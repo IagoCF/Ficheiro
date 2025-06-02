@@ -1,13 +1,18 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import FichaImg from '../../assets/ficha1.jpg'
 import './style.css'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import api from '../../services/api'
 
 function EditarFicha() {
   const navigate = useNavigate()
   const { id } = useParams()
+  const location = useLocation()
+  const userId = localStorage.getItem('usuario')
+  const fromSala = location.state?.fromSala
+  const idSala = location.state?.idSala
+  const criadorId = location.state?.criadorId
 
   // Todos os refs (mantidos)
   const inputNome = useRef()
@@ -118,6 +123,9 @@ function EditarFicha() {
   const inputPO = useRef();
   const inputPL = useRef();
 
+  // Estado para bloquear campos se não for o criador
+  const [isOwner, setIsOwner] = useState(false)
+
   function irParaHomeLogin() {
     navigate('/homelogin')
   }
@@ -132,6 +140,7 @@ function EditarFicha() {
 
   // Carregar dados da ficha ao abrir a página
   useEffect(() => {
+    // Após carregar a ficha, defina se é o dono
     async function carregarFicha() {
       try {
         const { data } = await api.get(`/ficha/${id}`)
@@ -243,13 +252,16 @@ function EditarFicha() {
         inputPO.current.value = data.po || ''
         inputPL.current.value = data.pl || ''
         inputEquipamento.current.value = data.equipamento || ''
+
+        // Descubra se o usuário é o criador
+        setIsOwner(String(data.idUsuario) === String(userId))
       } catch (err) {
         alert('Erro ao carregar ficha!')
       }
     }
     if (id) carregarFicha()
     // eslint-disable-next-line
-  }, [id])
+  }, [id, userId])
 
   async function salvarAlteracoes() {
     const ficha = {
@@ -364,6 +376,15 @@ function EditarFicha() {
       irParaMinhasFichas()
     } catch (err) {
       alert('Erro ao atualizar ficha!')
+    }
+  }
+
+  // Função para voltar corretamente
+  function voltar() {
+    if (fromSala && idSala) {
+      navigate('/usarsala')
+    } else {
+      navigate('/minhasfichas')
     }
   }
 
@@ -578,7 +599,7 @@ function EditarFicha() {
           <textarea className="campo equipamento" placeholder="Equipamento" ref={inputEquipamento}/>
         </div>
         <button className="botaoSalvar" onClick={salvarAlteracoes}>Salvar Alterações</button>
-        <button className="botaoVoltar" onClick={irParaMinhasFichas}>Descartar Alterações</button>
+        <button className="botaoVoltar" onClick={voltar}>Descartar Alterações</button>
       </div>
     </div>
   )

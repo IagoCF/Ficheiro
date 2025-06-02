@@ -64,6 +64,8 @@ function UsarSala() {
       return acc
     }, {})
   )
+  const [draggingId, setDraggingId] = useState(null)
+  const [dragged, setDragged] = useState(false)
 
   function startDrag(e, fichaId) {
     e.preventDefault()
@@ -197,6 +199,7 @@ function UsarSala() {
           ) : (
             fichas.map((ficha) => {
               const drag = drags[ficha.id] || {}
+
               return (
                 <div
                   key={ficha.id}
@@ -213,8 +216,28 @@ function UsarSala() {
                     cursor: drag.dragging ? 'grabbing' : 'grab',
                     touchAction: 'none'
                   }}
-                  onMouseDown={e => startDrag(e, ficha.id)}
-                  onTouchStart={e => startDrag(e, ficha.id)}
+                  onMouseDown={e => {
+                    setDraggingId(ficha.id)
+                    setDragged(false)
+                    ficha._startX = e.clientX
+                    ficha._startY = e.clientY
+                    startDrag(e, ficha.id)
+                  }}
+                  onMouseMove={e => {
+                    if (draggingId === ficha.id && !dragged) {
+                      const dx = Math.abs(e.clientX - ficha._startX)
+                      const dy = Math.abs(e.clientY - ficha._startY)
+                      if (dx > 5 || dy > 5) setDragged(true)
+                    }
+                  }}
+                  onMouseUp={e => {
+                    setDraggingId(null)
+                    setDragged(false)
+                  }}
+                  onMouseLeave={() => {
+                    setDraggingId(null)
+                    setDragged(false)
+                  }}
                 >
                   <div className="ficha-imagem-placeholder"></div>
                   <div className="ficha-info">
@@ -223,6 +246,38 @@ function UsarSala() {
                     <p>Raça: {ficha.raca}</p>
                     <p>Nível: {ficha.nivel}</p>
                   </div>
+                  <button
+                    className="botao-olho-ficha"
+                    title="Visualizar ficha"
+                    onClick={e => {
+                      e.stopPropagation()
+                      navigate(`/editarficha/${ficha.id}`, {
+                        state: {
+                          fromSala: true,
+                          idSala,
+                          criadorId: ficha.idUsuario
+                        }
+                      })
+                    }}
+                    style={{
+                      position: 'absolute',
+                      bottom: 12,
+                      right: 12,
+                      background: 'rgba(255,255,255,0.85)',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: 36,
+                      height: 36,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.10)',
+                      cursor: 'pointer',
+                      fontSize: 20
+                    }}
+                  >
+                    <span role="img" aria-label="Visualizar">👁️</span>
+                  </button>
                 </div>
               )
             })

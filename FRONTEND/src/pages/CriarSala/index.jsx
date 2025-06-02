@@ -60,10 +60,12 @@ function CriarSala() {
                     idUsuario: userId,
                     idSala: salaId
                 })
+                // Salva o id da sala criada no localStorage
+                localStorage.setItem('sala', salaId)
             }
 
             alert('Sala criada e vinculada com sucesso!')
-            irParaUsarSala()
+            navigate('/usarsala')
         } catch (err) {
             alert(err)
             console.log(err)

@@ -78,11 +78,13 @@ nav a:hover {
     position: relative;
     z-index: 2;
     justify-content: flex-start;
+    /* Garante que o rodapé fique fixo e a lista ocupe o espaço restante */
+    height: 100vh;
 }
 
 .menu-header {
     width: 100%;
-    background: #000; /* fundo preto no topo */
+    background: #000;
     color: #fff;
     padding: 16px 24px 16px 24px;
     box-sizing: border-box;
@@ -102,10 +104,15 @@ nav a:hover {
 
 .menu-integrantes {
     width: 100%;
-    background: #fff; /* fundo branco para a lista */
+    background: #fff;
     color: #222;
     padding: 16px 8px 0 8px;
     box-sizing: border-box;
+    /* Torna a lista rolável e ocupa o espaço entre header e rodapé */
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0;
+    max-height: none;
 }
 
 .menu-integrantes ul {
@@ -224,11 +231,20 @@ nav a:hover {
 
 .menu-rodape {
     width: 100%;
-    margin-top: auto;
+    /* Fixa o rodapé na parte inferior da sidebar */
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    padding: 24px 0 16px 0;
+    border-top: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    z-index: 3;
+    box-sizing: border-box;
+    margin-top: auto;
 }
 
 .sala-id {
@@ -341,4 +357,8 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.botao-olho-ficha:hover {
+  background: #e0e0e0;
 }
