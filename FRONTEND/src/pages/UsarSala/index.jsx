@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import Logo from '../../assets/logo.png'
 import './style.css'
 
 function UsarSala() {
@@ -26,6 +25,10 @@ function UsarSala() {
     navigate('/salas')
   }
 
+  function irParaCriarFichas() {
+    navigate('/criarficha')
+  }
+
   function irParaMinhasFichas() {
     navigate('/minhasfichas')
   }
@@ -42,9 +45,11 @@ function UsarSala() {
             <ul>
               {integrantes.map((int, idx) => (
                 <li key={idx} className={`integrante-card${int.selecionado ? " selecionado" : ""}`}>
-                  <img className="integrante-avatar" src={int.avatar} alt={int.nome} />
+                  <div className="integrante-avatar-placeholder"></div>
                   <div className="integrante-info">
-                    <span className="integrante-nome"> {int.nome} {int.mestre && <span className="integrante-coroa"> 👑</span>}</span>
+                    <span className="integrante-nome">
+                      {int.nome} {int.mestre && <span className="integrante-coroa"> 👑</span>}
+                    </span>
                     <span className="integrante-funcao">{int.funcao}</span>
                   </div>
                 </li>
@@ -53,7 +58,12 @@ function UsarSala() {
           </div>
         </aside>
         <div className="conteudoSala">
-          {/* Conteúdo principal da sala aqui */}
+          <div className="botoes-centro">
+            <h1 className="titulo-centro">{nomeSala}</h1>
+            <button onClick={irParaCriarFichas} className="botao-centro">Criar uma ficha</button>
+            <button onClick={irParaMinhasFichas} className="botao-centro">Inserir ficha existente</button>
+            <button className="botao-centro">Visualizar Fichas</button>
+          </div>
         </div>
       </div>
     </div>
