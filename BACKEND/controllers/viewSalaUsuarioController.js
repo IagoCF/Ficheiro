@@ -7,7 +7,7 @@ export function buscarUsuariosDaSala(req, res) {
         return res.status(400).json({ erro: 'O parâmetro idSala é obrigatório.' });
     }
 
-    const sql = 'SELECT idSala, idUsuario, nomeUsuario FROM viewSalaUsuario WHERE idSala = ?';
+    const sql = 'SELECT * FROM viewSalaUsuario WHERE idSala = ?';
 
     conexao.query(sql, [idSala], function (erro, resultado) {
         if (erro) {

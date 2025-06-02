@@ -5,20 +5,27 @@ import api from '../../services/api'
 
 function UsarSala() {
   const navigate = useNavigate()
-  const nomeSala = "Sala dos Heróis"
-  const sistema = "Dungeons & Dragons"
-  const idSala = localStorage.getItem('sala') // Certifique-se de salvar o idSala no localStorage ao entrar na sala
+  const idSala = localStorage.getItem('sala')
 
   // Estado para integrantes reais
   const [integrantes, setIntegrantes] = useState([])
+  // Estado para nome da sala e sistema
+  const [nomeSala, setNomeSala] = useState('')
+  const [nomeSistema, setNomeSistema] = useState('')
 
   useEffect(() => {
     async function fetchIntegrantes() {
       try {
-        // Chama o endpoint do backend passando o idSala como query param
         const response = await api.get(`/viewSalaUsuario?idSala=${idSala}`)
-        // Espera-se que response.data seja um array de objetos { idSala, idUsuario, nomeUsuario }
         setIntegrantes(response.data)
+        // Se houver pelo menos um resultado, pegue nomeSala e nomeSistema do primeiro registro
+        if (response.data.length > 0) {
+          setNomeSala(response.data[0].nomeSala)
+          setNomeSistema(response.data[0].nomeSistema)
+        } else {
+          setNomeSala('')
+          setNomeSistema('')
+        }
       } catch (error) {
         console.error('Erro ao buscar integrantes:', error)
       }
@@ -27,8 +34,7 @@ function UsarSala() {
   }, [idSala])
 
   // Exemplo de fichas para teste
-  const [fichas] = useState([
-  ])
+  const [fichas] = useState([])
 
   // Estado de drag para cada ficha
   const areaRef = useRef(null)
@@ -150,7 +156,7 @@ function UsarSala() {
         <aside className="menu-vertical">
           <div className="menu-header">
             <h2 className="sala-nome">{nomeSala}</h2>
-            <span className="sala-sistema">{sistema}</span>
+            <span className="sala-sistema">{nomeSistema}</span>
           </div>
           <div className="menu-integrantes">
             <ul>
