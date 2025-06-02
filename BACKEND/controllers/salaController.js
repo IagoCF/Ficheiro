@@ -49,3 +49,45 @@ export function salvarSala(req, res) {
         res.status(201).json({ mensagem: 'Sala criada com sucesso!', id: resultado.insertId });
     });
 }
+
+export function verificarSala(req, res) {
+    const { idSala } = req.query;
+
+    if (!idSala) {
+        return res.status(400).json({ erro: 'O parâmetro idSala é obrigatório.' });
+    }
+
+    const sql = 'SELECT id, senha FROM sala WHERE id = ?';
+
+    conexao.query(sql, [idSala], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao verificar sala:', erro);
+            return res.status(500).json({ erro: 'Erro ao verificar sala.' });
+        }
+        if (resultado.length === 0) {
+            return res.json({ existe: false });
+        }
+        const sala = resultado[0];
+        res.json({
+            existe: true,
+            precisaSenha: !!(sala.senha && sala.senha !== '')
+        });
+    });
+}
+
+export function entrarSala(req, res) {
+    const { idSala, senha } = req.body;
+
+    if (!idSala) {
+        return res.status(400).json({ sucesso: false, erro: 'O parâmetro idSala é obrigatório.' });
+    }
+
+    conexao.query('SELECT senha FROM sala WHERE id = ?', [idSala], (erro, resultado) => {
+        if (erro || resultado.length === 0) return res.json({ sucesso: false });
+        // Se a sala não tem senha, ou senha bate, permite entrar
+        if (!resultado[0].senha || resultado[0].senha === '' || resultado[0].senha === senha) {
+            return res.json({ sucesso: true });
+        }
+        return res.json({ sucesso: false });
+    });
+}

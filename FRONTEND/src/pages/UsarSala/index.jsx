@@ -149,7 +149,7 @@ function UsarSala() {
   }, [drags, fichas])
 
   function irParaCriarFichas() {
-    navigate('/criarficha')
+    navigate('/criarficha', { state: { fromSala: true, idSala } })
   }
 
   function irParaMinhasFichas() {
@@ -184,7 +184,7 @@ function UsarSala() {
           </div>
           <div className="menu-rodape">
             <button onClick={irParaSalas} className="botao-sair">Sair da sala</button>
-            <span className="sala-id">{idSala}</span>
+            <span className="sala-id">ID da Sala: #{idSala}</span>
           </div>
         </aside>
         <div className="conteudoSala" ref={areaRef}>
@@ -229,8 +229,8 @@ function UsarSala() {
           )}
           {fichas.length ? (
             <div className="botoes-icones-bottom fade-in">
-              <button title="Chat" className="icone-botao"><span role="img" aria-label="chat">💬</span></button>
-              <button title="Rolagem" className="icone-botao"><span role="img" aria-label="dice">🎲</span></button>
+              <button onClick={irParaMinhasFichas} title="Chat" className="icone-botao"><span role="img" aria-label="chat">💬</span></button>
+              <button onClick={irParaCriarFichas} title="Rolagem" className="icone-botao"><span role="img" aria-label="dice">🎲</span></button>
               <button title="Notas" className="icone-botao"><span role="img" aria-label="notas">📝</span></button>
               <button title="Configurações" className="icone-botao"><span role="img" aria-label="config">⚙️</span></button>
             </div>

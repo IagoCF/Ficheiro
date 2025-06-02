@@ -109,4 +109,241 @@ nav a:hover {
 
 .imagemSalas img {
     width: 100%;
+}* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Imagem de fundo */
+.background {
+    background-image: url('src/assets/background.jpg');
+    background-size: cover;
+    background-position: top center;
+    height: 100vh;
+    position: relative;
+}
+
+.background2{
+    background-image: url('src/assets/background2.jpg');
+    background-size: cover;
+    background-position: top center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header fixo no topo */
+header {
+    background-color: black;
+    color: white;
+    padding: 10px 40px;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+header .logo img {
+    width: 220px;
+    margin-right: 10px;
+}
+
+nav a {
+    font-size: 18px;
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+.botaoSelecionado {
+    color: #5AD618;
+}
+
+nav a:hover {
+    color: #5AD618;
+}
+
+.botoesSalas{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    width: 60%;
+    height: 45vh;
+    margin-top: 5%;
+    gap: 10px;
+}
+
+.botoesSalas button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 25%;
+    border-radius: 90px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.botaoSala p {
+    font-size: 12px;
+    margin: 0;
+    font-weight: normal;
+    width: 100%;
+}
+
+.botoesImagem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: space-between;
+    width: 80%;
+    margin-right: 5%;
+    margin-left: 10%;
+}
+
+/* Modal styles */
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal container */
+.modal-sala {
+  background: #fff;
+  border-radius: 32px;
+  padding: 40px 8px 8px 8px;
+  width: 40%;
+  max-width: 95vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal-sala h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: inherit;
+}
+
+.modal-sala form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.modal-sala label {
+  width: 100%;
+  color: #222;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.modal-sala input {
+  margin-top: 8px;
+  padding: 14px 20px;
+  border-radius: 40px;
+  border: 2px solid #222;
+  font-size: 1.1rem;
+  background: #fff;
+  color: #222;
+  outline: none;
+  font-weight: 500;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+.modal-sala input:focus {
+  border: 2px solid #106b3c;
+}
+
+.modal-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Botão do modal: só afeta botões dentro do .modal-sala */
+.modal-sala .botaoSala {
+  padding: 12px 32px;
+  border-radius: 48px;
+  border: none;
+  background: #106b3c;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.modal-sala .botaoSala:hover {
+  background: #0d4e2e;
+}
+
+/* Exclusivo para botões do pop-up/modal */
+.modal-botao {
+  padding: 14px 0;
+  border-radius: 40px;
+  border: none;
+  background: #106b3c;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 140px;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  letter-spacing: 0.5px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.modal-botao-sair {
+    background-color: #c0392b;
+}
+
+.modal-botao:hover {
+  background: #0d4e2e;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96);}
+  to { opacity: 1; transform: scale(1);}
 }

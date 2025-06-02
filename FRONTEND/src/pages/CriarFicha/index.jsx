@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import FichaImg from '../../assets/ficha1.jpg'
 import './style.css'
@@ -7,6 +7,9 @@ import api from '../../services/api' // Importe seu axios/api configurado aqui
 
 function CriarFicha() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const fromSala = location.state?.fromSala
+  const idSala = location.state?.idSala
 
   const inputNome = useRef()
   const inputClasse = useRef()
@@ -139,6 +142,10 @@ function CriarFicha() {
     navigate('/perfil')
   }
 
+  function irParaMinhasFichas() {
+    navigate('/minhasfichas')
+  }
+
   async function salvarFicha() {
     const ficha = {
       idUsuario: localStorage.getItem('usuario'), // ajuste conforme sua lógica de usuário
@@ -250,8 +257,12 @@ function CriarFicha() {
     try {
       // Troque a linha abaixo para usar seu axios/api configurado, igual ao cadastro de usuário:
       await api.post('/ficha', ficha)
-      alert('Ficha salva com sucesso!')
-      // Redirecione ou limpe o formulário se desejar
+      if (fromSala && idSala) {
+        navigate('/usarsala')
+      } else {
+        // comportamento padrão, se necessário
+        navigate('/minhasfichas')
+      }
     } catch (err) {
       alert('Erro ao salvar ficha!')
     }
