@@ -1,35 +1,33 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './style.css'
+import api from '../../services/api'
 
 function UsarSala() {
   const navigate = useNavigate()
   const nomeSala = "Sala dos Heróis"
   const sistema = "Dungeons & Dragons"
-  const integrantes = [
-    { nome: "Fulanovsky", funcao: "Mestre", selecionado: false, mestre: true },
-    { nome: "Macaco A", funcao: "Ajudante", selecionado: false },
-    { nome: "Benson da Sil...", funcao: "Jogador", selecionado: false },
-    { nome: "Matador de g...", funcao: "Espectador", selecionado: false }
-  ]
-  const idSala = "#000001"
+  const idSala = localStorage.getItem('sala') // Certifique-se de salvar o idSala no localStorage ao entrar na sala
+
+  // Estado para integrantes reais
+  const [integrantes, setIntegrantes] = useState([])
+
+  useEffect(() => {
+    async function fetchIntegrantes() {
+      try {
+        // Chama o endpoint do backend passando o idSala como query param
+        const response = await api.get(`/viewSalaUsuario?idSala=${idSala}`)
+        // Espera-se que response.data seja um array de objetos { idSala, idUsuario, nomeUsuario }
+        setIntegrantes(response.data)
+      } catch (error) {
+        console.error('Erro ao buscar integrantes:', error)
+      }
+    }
+    if (idSala) fetchIntegrantes()
+  }, [idSala])
 
   // Exemplo de fichas para teste
   const [fichas] = useState([
-    {
-      id: 1,
-      nomePersonagem: "Arthas",
-      classe: "Paladino",
-      raca: "Humano",
-      nivel: 5
-    },
-    {
-      id: 2,
-      nomePersonagem: "Coiso",
-      classe: "Paladino",
-      raca: "Humano",
-      nivel: 5
-    }
   ])
 
   // Estado de drag para cada ficha
@@ -157,13 +155,10 @@ function UsarSala() {
           <div className="menu-integrantes">
             <ul>
               {integrantes.map((int, idx) => (
-                <li key={idx} className={`integrante-card${int.selecionado ? " selecionado" : ""}`}>
+                <li key={int.idUsuario || idx} className="integrante-card">
                   <div className="integrante-avatar-placeholder"></div>
                   <div className="integrante-info">
-                    <span className="integrante-nome">
-                      {int.nome} {int.mestre && <span className="integrante-coroa"> 👑</span>}
-                    </span>
-                    <span className="integrante-funcao">{int.funcao}</span>
+                    <span className="integrante-nome">{int.nomeUsuario}</span>
                   </div>
                 </li>
               ))}

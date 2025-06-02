@@ -71,7 +71,15 @@ function MinhasSalas() {
               <p className="nenhuma-ficha">Nenhuma sala encontrada.</p>
             ) : (
               salas.map((sala) => (
-                <div className="card-ficha" key={sala.id}>
+                <div
+                  className="card-ficha"
+                  key={sala.id}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    localStorage.setItem('sala', sala.id)
+                    navigate('/usarsala')
+                  }}
+                >
                   <div className="ficha-imagem-placeholder"></div>
                   <div className="ficha-info">
                     <h3>{sala.nome_sala}</h3>
