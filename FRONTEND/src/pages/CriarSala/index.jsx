@@ -48,14 +48,25 @@ function CriarSala() {
             idUsuarioCriador: userId,
             criada
         }
-        console.log('Enviando para o backend:', payload)
 
         try {
-            await api.post('/sala', payload)
-            alert('Sala criada com sucesso!')
+            // Cria a sala e obtém o ID retornado pelo backend
+            const response = await api.post('/sala', payload)
+            const salaId = response.data.id || response.data.sala_id || response.data.salaId
+
+            // Vincula o usuário à sala criada
+            if (salaId) {
+                await api.post('/salaUsuario', {
+                    idUsuario: userId,
+                    idSala: salaId
+                })
+            }
+
+            alert('Sala criada e vinculada com sucesso!')
             irParaUsarSala()
         } catch (err) {
             alert(err)
+            console.log(err)
         }
     }
 
