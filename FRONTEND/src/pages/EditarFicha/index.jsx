@@ -140,7 +140,6 @@ function EditarFicha() {
 
   // Carregar dados da ficha ao abrir a página
   useEffect(() => {
-    // Após carregar a ficha, defina se é o dono
     async function carregarFicha() {
       try {
         const { data } = await api.get(`/ficha/${id}`)
@@ -264,6 +263,8 @@ function EditarFicha() {
   }, [id, userId])
 
   async function salvarAlteracoes() {
+    if (!isOwner) return; // Segurança extra
+
     const ficha = {
       idUsuario: localStorage.getItem('usuario'),
       nomePersonagem: inputNome.current.value,
@@ -388,6 +389,14 @@ function EditarFicha() {
     }
   }
 
+  // Função utilitária para bloquear todos os campos se não for o dono
+  function getInputProps() {
+    return isOwner ? {} : { disabled: true, readOnly: true, tabIndex: -1 }
+  }
+  function getCheckboxProps() {
+    return isOwner ? {} : { disabled: true, tabIndex: -1 }
+  }
+
   return (
     <div className="background2">
       <header>
@@ -406,199 +415,201 @@ function EditarFicha() {
           <img src={FichaImg} alt="Ficha" className="ficha-img" />
 
           {/* Dados principais */}
-          <input className="campo nome" type="text" placeholder="Nome" ref={inputNome} />
-          <input className="campo classe" type="text" placeholder="Classe" ref={inputClasse} />
-          <input className="campo nivel" type="text" placeholder="Nível" ref={inputNivel} />
-          <input className="campo raca" type="text" placeholder="Raça" ref={inputRaca} />
-          <input className="campo antecedente" type="text" placeholder="Antecedente" ref={inputAntecedente} />
-          <input className="campo jogador" type="text" placeholder="Jogador" ref={inputJogador} />
-          <input className="campo alinhamento" type="text" placeholder="Alinhamento" ref={inputAlinhamento} />
-          <input className="campo xp" type="text" placeholder="XP" ref={inputXp} />
+          <input className="campo nome" type="text" placeholder="Nome" ref={inputNome} {...getInputProps()} />
+          <input className="campo classe" type="text" placeholder="Classe" ref={inputClasse} {...getInputProps()} />
+          <input className="campo nivel" type="text" placeholder="Nível" ref={inputNivel} {...getInputProps()} />
+          <input className="campo raca" type="text" placeholder="Raça" ref={inputRaca} {...getInputProps()} />
+          <input className="campo antecedente" type="text" placeholder="Antecedente" ref={inputAntecedente} {...getInputProps()} />
+          <input className="campo jogador" type="text" placeholder="Jogador" ref={inputJogador} {...getInputProps()} />
+          <input className="campo alinhamento" type="text" placeholder="Alinhamento" ref={inputAlinhamento} {...getInputProps()} />
+          <input className="campo xp" type="text" placeholder="XP" ref={inputXp} {...getInputProps()} />
 
           {/* Atributos */}
-          <input className="campo forcamod" type="text" placeholder="FOR" ref={inputForcaMod} />
-          <input className="campo forca" type="text" placeholder="FOR" ref={inputForca} />
-          <input className="campo destrezamod" type="text" placeholder="DES" ref={inputDestrezaMod} />
-          <input className="campo destreza" type="text" placeholder="DES" ref={inputDestreza} />
-          <input className="campo constituicaomod" type="text" placeholder="CON" ref={inputConstituicaoMod} />
-          <input className="campo constituicao" type="text" placeholder="CON" ref={inputConstituicao} />
-          <input className="campo inteligenciamod" type="text" placeholder="INT" ref={inputInteligenciaMod} />
-          <input className="campo inteligencia" type="text" placeholder="INT" ref={inputInteligencia} />
-          <input className="campo sabedoriamod" type="text" placeholder="SAB" ref={inputSabedoriaMod} />
-          <input className="campo sabedoria" type="text" placeholder="SAB" ref={inputSabedoria} />
-          <input className="campo carismamod" type="text" placeholder="CAR" ref={inputCarismaMod} />
-          <input className="campo carisma" type="text" placeholder="CAR" ref={inputCarisma} />
+          <input className="campo forcamod" type="text" placeholder="FOR" ref={inputForcaMod} {...getInputProps()} />
+          <input className="campo forca" type="text" placeholder="FOR" ref={inputForca} {...getInputProps()} />
+          <input className="campo destrezamod" type="text" placeholder="DES" ref={inputDestrezaMod} {...getInputProps()} />
+          <input className="campo destreza" type="text" placeholder="DES" ref={inputDestreza} {...getInputProps()} />
+          <input className="campo constituicaomod" type="text" placeholder="CON" ref={inputConstituicaoMod} {...getInputProps()} />
+          <input className="campo constituicao" type="text" placeholder="CON" ref={inputConstituicao} {...getInputProps()} />
+          <input className="campo inteligenciamod" type="text" placeholder="INT" ref={inputInteligenciaMod} {...getInputProps()} />
+          <input className="campo inteligencia" type="text" placeholder="INT" ref={inputInteligencia} {...getInputProps()} />
+          <input className="campo sabedoriamod" type="text" placeholder="SAB" ref={inputSabedoriaMod} {...getInputProps()} />
+          <input className="campo sabedoria" type="text" placeholder="SAB" ref={inputSabedoria} {...getInputProps()} />
+          <input className="campo carismamod" type="text" placeholder="CAR" ref={inputCarismaMod} {...getInputProps()} />
+          <input className="campo carisma" type="text" placeholder="CAR" ref={inputCarisma} {...getInputProps()} />
 
           {/* Defesa e Vida */}
-          <input className="campo ca" type="text" placeholder="CA" ref={inputCa} />
-          <input className="campo iniciativa" type="text" placeholder="Iniciativa" ref={inputIniciativa} />
-          <input className="campo deslocamento" type="text" placeholder="Deslocamento" ref={inputDeslocamento} />
+          <input className="campo ca" type="text" placeholder="CA" ref={inputCa} {...getInputProps()} />
+          <input className="campo iniciativa" type="text" placeholder="Iniciativa" ref={inputIniciativa} {...getInputProps()} />
+          <input className="campo deslocamento" type="text" placeholder="Deslocamento" ref={inputDeslocamento} {...getInputProps()} />
 
-          <input className="campo pvMax" type="text" placeholder="PV Máximo" ref={inputPontosVida} />
-          <input className="campo pvAtual" type="text" placeholder="PV Atual" ref={inputPontosVidaAtuais} />
-          <input className="campo pvTemp" type="text" placeholder="PV Temporário" ref={inputPontosVidaTemporarios} />
+          <input className="campo pvMax" type="text" placeholder="PV Máximo" ref={inputPontosVida} {...getInputProps()} />
+          <input className="campo pvAtual" type="text" placeholder="PV Atual" ref={inputPontosVidaAtuais} {...getInputProps()} />
+          <input className="campo pvTemp" type="text" placeholder="PV Temporário" ref={inputPontosVidaTemporarios} {...getInputProps()} />
 
           {/* Inspiração */}
-          <input className="campo inspiracao" type="text" placeholder="Inspiração" ref={inputInspiracao} />
+          <input className="campo inspiracao" type="text" placeholder="Inspiração" ref={inputInspiracao} {...getInputProps()} />
 
           {/* Proficiência */}
-          <input className="campo proficiencia" type="text" placeholder="Bônus de Proficiência" ref={inputProficiencia} />
+          <input className="campo proficiencia" type="text" placeholder="Bônus de Proficiência" ref={inputProficiencia} {...getInputProps()} />
 
           {/* Salvaguardas */}
           <div className="campo salvaguardas">
             <div className="linha-salvaguarda">
-              <input type="checkbox" className="bolinha bolinha-forca" ref={inputSalvaguardaForca} />
-              <input type="text" className="numero-salvaguarda numero-forca" maxLength={2} ref={inputNumeroSalvaguardaForca} />
+              <input type="checkbox" className="bolinha bolinha-forca" ref={inputSalvaguardaForca} {...getCheckboxProps()} />
+              <input type="text" className="numero-salvaguarda numero-forca" maxLength={2} ref={inputNumeroSalvaguardaForca} {...getInputProps()} />
             </div>
             <div className="linha-salvaguarda">
-              <input type="checkbox" className="bolinha bolinha-destreza" ref={inputSalvaguardaDestreza} />
-              <input type="text" className="numero-salvaguarda numero-destreza" maxLength={2} ref={inputNumeroSalvaguardaDestreza} />
+              <input type="checkbox" className="bolinha bolinha-destreza" ref={inputSalvaguardaDestreza} {...getCheckboxProps()} />
+              <input type="text" className="numero-salvaguarda numero-destreza" maxLength={2} ref={inputNumeroSalvaguardaDestreza} {...getInputProps()} />
             </div>
             <div className="linha-salvaguarda">
-              <input type="checkbox" className="bolinha bolinha-constituicao" ref={inputSalvaguardaConstituicao} />
-              <input type="text" className="numero-salvaguarda numero-constituicao" maxLength={2} ref={inputNumeroSalvaguardaConstituicao} />
+              <input type="checkbox" className="bolinha bolinha-constituicao" ref={inputSalvaguardaConstituicao} {...getCheckboxProps()} />
+              <input type="text" className="numero-salvaguarda numero-constituicao" maxLength={2} ref={inputNumeroSalvaguardaConstituicao} {...getInputProps()} />
             </div>
             <div className="linha-salvaguarda">
-              <input type="checkbox" className="bolinha bolinha-inteligencia" ref={inputSalvaguardaInteligencia} />
-              <input type="text" className="numero-salvaguarda numero-inteligencia" maxLength={2} ref={inputNumeroSalvaguardaInteligencia} />
+              <input type="checkbox" className="bolinha bolinha-inteligencia" ref={inputSalvaguardaInteligencia} {...getCheckboxProps()} />
+              <input type="text" className="numero-salvaguarda numero-inteligencia" maxLength={2} ref={inputNumeroSalvaguardaInteligencia} {...getInputProps()} />
             </div>
             <div className="linha-salvaguarda">
-              <input type="checkbox" className="bolinha bolinha-sabedoria" ref={inputSalvaguardaSabedoria} />
-              <input type="text" className="numero-salvaguarda numero-sabedoria" maxLength={2} ref={inputNumeroSalvaguardaSabedoria} />
+              <input type="checkbox" className="bolinha bolinha-sabedoria" ref={inputSalvaguardaSabedoria} {...getCheckboxProps()} />
+              <input type="text" className="numero-salvaguarda numero-sabedoria" maxLength={2} ref={inputNumeroSalvaguardaSabedoria} {...getInputProps()} />
             </div>
             <div className="linha-salvaguarda">
-              <input type="checkbox" className="bolinha bolinha-carisma" ref={inputSalvaguardaCarisma} />
-              <input type="text" className="numero-salvaguarda numero-carisma" maxLength={2} ref={inputNumeroSalvaguardaCarisma} />
+              <input type="checkbox" className="bolinha bolinha-carisma" ref={inputSalvaguardaCarisma} {...getCheckboxProps()} />
+              <input type="text" className="numero-salvaguarda numero-carisma" maxLength={2} ref={inputNumeroSalvaguardaCarisma} {...getInputProps()} />
             </div>
           </div>
 
           {/* Perícias */}
           <div className="campo pericias">
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-acrobacia" ref={inputPericiaAcrobacia} />
-              <input type="text" className="numero-pericia numero-acrobacia" maxLength={2} ref={inputNumeroPericiaAcrobacia} />
+              <input type="checkbox" className="bolinha bolinha-acrobacia" ref={inputPericiaAcrobacia} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-acrobacia" maxLength={2} ref={inputNumeroPericiaAcrobacia} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-arcanismo" ref={inputPericiaArcanismo} />
-              <input type="text" className="numero-pericia numero-arcanismo" maxLength={2} ref={inputNumeroPericiaArcanismo} />
+              <input type="checkbox" className="bolinha bolinha-arcanismo" ref={inputPericiaArcanismo} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-arcanismo" maxLength={2} ref={inputNumeroPericiaArcanismo} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-atletismo" ref={inputPericiaAtletismo} />
-              <input type="text" className="numero-pericia numero-atletismo" maxLength={2} ref={inputNumeroPericiaAtletismo} />
+              <input type="checkbox" className="bolinha bolinha-atletismo" ref={inputPericiaAtletismo} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-atletismo" maxLength={2} ref={inputNumeroPericiaAtletismo} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-atuacao" ref={inputPericiaAtuacao} />
-              <input type="text" className="numero-pericia numero-atuacao" maxLength={2} ref={inputNumeroPericiaAtuacao} />
+              <input type="checkbox" className="bolinha bolinha-atuacao" ref={inputPericiaAtuacao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-atuacao" maxLength={2} ref={inputNumeroPericiaAtuacao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-enganacao" ref={inputPericiaEnganacao} />
-              <input type="text" className="numero-pericia numero-enganacao" maxLength={2} ref={inputNumeroPericiaEnganacao} />
+              <input type="checkbox" className="bolinha bolinha-enganacao" ref={inputPericiaEnganacao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-enganacao" maxLength={2} ref={inputNumeroPericiaEnganacao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-furtividade" ref={inputPericiaFurtividade} />
-              <input type="text" className="numero-pericia numero-furtividade" maxLength={2} ref={inputNumeroPericiaFurtividade} />
+              <input type="checkbox" className="bolinha bolinha-furtividade" ref={inputPericiaFurtividade} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-furtividade" maxLength={2} ref={inputNumeroPericiaFurtividade} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-historia" ref={inputPericiaHistoria} />
-              <input type="text" className="numero-pericia numero-historia" maxLength={2} ref={inputNumeroPericiaHistoria} />
+              <input type="checkbox" className="bolinha bolinha-historia" ref={inputPericiaHistoria} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-historia" maxLength={2} ref={inputNumeroPericiaHistoria} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-intimidacao" ref={inputPericiaIntimidacao} />
-              <input type="text" className="numero-pericia numero-intimidacao" maxLength={2} ref={inputNumeroPericiaIntimidacao} />
+              <input type="checkbox" className="bolinha bolinha-intimidacao" ref={inputPericiaIntimidacao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-intimidacao" maxLength={2} ref={inputNumeroPericiaIntimidacao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-intuicao" ref={inputPericiaIntuicao} />
-              <input type="text" className="numero-pericia numero-intuicao" maxLength={2} ref={inputNumeroPericiaIntuicao} />
+              <input type="checkbox" className="bolinha bolinha-intuicao" ref={inputPericiaIntuicao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-intuicao" maxLength={2} ref={inputNumeroPericiaIntuicao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-investigacao" ref={inputPericiaInvestigacao} />
-              <input type="text" className="numero-pericia numero-investigacao" maxLength={2} ref={inputNumeroPericiaInvestigacao} />
+              <input type="checkbox" className="bolinha bolinha-investigacao" ref={inputPericiaInvestigacao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-investigacao" maxLength={2} ref={inputNumeroPericiaInvestigacao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-lidar-com-animais" ref={inputPericiaLidarComAnimais} />
-              <input type="text" className="numero-pericia numero-lidar-com-animais" maxLength={2} ref={inputNumeroPericiaLidarComAnimais} />
+              <input type="checkbox" className="bolinha bolinha-lidar-com-animais" ref={inputPericiaLidarComAnimais} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-lidar-com-animais" maxLength={2} ref={inputNumeroPericiaLidarComAnimais} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-medicina" ref={inputPericiaMedicina} />
-              <input type="text" className="numero-pericia numero-medicina" maxLength={2} ref={inputNumeroPericiaMedicina} />
+              <input type="checkbox" className="bolinha bolinha-medicina" ref={inputPericiaMedicina} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-medicina" maxLength={2} ref={inputNumeroPericiaMedicina} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-natureza" ref={inputPericiaNatureza} />
-              <input type="text" className="numero-pericia numero-natureza" maxLength={2} ref={inputNumeroPericiaNatureza} />
+              <input type="checkbox" className="bolinha bolinha-natureza" ref={inputPericiaNatureza} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-natureza" maxLength={2} ref={inputNumeroPericiaNatureza} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-percepcao" ref={inputPericiaPercepcao} />
-              <input type="text" className="numero-pericia numero-percepcao" maxLength={2} ref={inputNumeroPericiaPercepcao} />
+              <input type="checkbox" className="bolinha bolinha-percepcao" ref={inputPericiaPercepcao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-percepcao" maxLength={2} ref={inputNumeroPericiaPercepcao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-persuasao" ref={inputPericiaPersuasao} />
-              <input type="text" className="numero-pericia numero-persuasao" maxLength={2} ref={inputNumeroPericiaPersuasao} />
+              <input type="checkbox" className="bolinha bolinha-persuasao" ref={inputPericiaPersuasao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-persuasao" maxLength={2} ref={inputNumeroPericiaPersuasao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-prestidigitacao" ref={inputPericiaPrestidigitacao} />
-              <input type="text" className="numero-pericia numero-prestidigitacao" maxLength={2} ref={inputNumeroPericiaPrestidigitacao} />
+              <input type="checkbox" className="bolinha bolinha-prestidigitacao" ref={inputPericiaPrestidigitacao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-prestidigitacao" maxLength={2} ref={inputNumeroPericiaPrestidigitacao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-religiao" ref={inputPericiaReligiao} />
-              <input type="text" className="numero-pericia numero-religiao" maxLength={2} ref={inputNumeroPericiaReligiao} />
+              <input type="checkbox" className="bolinha bolinha-religiao" ref={inputPericiaReligiao} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-religiao" maxLength={2} ref={inputNumeroPericiaReligiao} {...getInputProps()} />
             </div>
             <div className="linha-pericia">
-              <input type="checkbox" className="bolinha bolinha-sobrevivencia" ref={inputPericiaSobrevivencia} />
-              <input type="text" className="numero-pericia numero-sobrevivencia" maxLength={2} ref={inputNumeroPericiaSobrevivencia} />
+              <input type="checkbox" className="bolinha bolinha-sobrevivencia" ref={inputPericiaSobrevivencia} {...getCheckboxProps()} />
+              <input type="text" className="numero-pericia numero-sobrevivencia" maxLength={2} ref={inputNumeroPericiaSobrevivencia} {...getInputProps()} />
             </div>
           </div>
           {/* Salvaguardas contra morte */}
           <div className="campo salvaguarda-morte">
             <div className="linha-salvaguarda-morte">
               <span className="label-salvaguarda-morte"></span>
-              <input type="checkbox" className="bolinha bolinha-sucesso-morte1" ref={inputSucessoMorte1} />
-              <input type="checkbox" className="bolinha bolinha-sucesso-morte2" ref={inputSucessoMorte2} />
-              <input type="checkbox" className="bolinha bolinha-sucesso-morte3" ref={inputSucessoMorte3} />
+              <input type="checkbox" className="bolinha bolinha-sucesso-morte1" ref={inputSucessoMorte1} {...getCheckboxProps()} />
+              <input type="checkbox" className="bolinha bolinha-sucesso-morte2" ref={inputSucessoMorte2} {...getCheckboxProps()} />
+              <input type="checkbox" className="bolinha bolinha-sucesso-morte3" ref={inputSucessoMorte3} {...getCheckboxProps()} />
             </div>
             <div className="linha-salvaguarda-morte">
               <span className="label-salvaguarda-morte"></span>
-              <input type="checkbox" className="bolinha bolinha-falha-morte1" ref={inputFalhaMorte1} />
-              <input type="checkbox" className="bolinha bolinha-falha-morte2" ref={inputFalhaMorte2} />
-              <input type="checkbox" className="bolinha bolinha-falha-morte3" ref={inputFalhaMorte3} />
+              <input type="checkbox" className="bolinha bolinha-falha-morte1" ref={inputFalhaMorte1} {...getCheckboxProps()} />
+              <input type="checkbox" className="bolinha bolinha-falha-morte2" ref={inputFalhaMorte2} {...getCheckboxProps()} />
+              <input type="checkbox" className="bolinha bolinha-falha-morte3" ref={inputFalhaMorte3} {...getCheckboxProps()} />
             </div>
           </div>
-          <input className="campo dado-vida-total" type="text" placeholder="Total" ref={inputDadoVidaTotal} />
-          <input className="campo dado-vida" type="text" placeholder="Total" ref={inputDadoVida} />
+          <input className="campo dado-vida-total" type="text" placeholder="Total" ref={inputDadoVidaTotal} {...getInputProps()} />
+          <input className="campo dado-vida" type="text" placeholder="Total" ref={inputDadoVida} {...getInputProps()} />
           {/* Ataques */}
           <div className="campo ataques">
             <div className="linha-ataque">
-              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome1} />
-              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus1} />
-              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano1} />
+              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome1} {...getInputProps()} />
+              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus1} {...getInputProps()} />
+              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano1} {...getInputProps()} />
             </div>
             <div className="linha-ataque">
-              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome2} />
-              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus2} />
-              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano2} />
+              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome2} {...getInputProps()} />
+              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus2} {...getInputProps()} />
+              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano2} {...getInputProps()} />
             </div>
             <div className="linha-ataque">
-              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome3} />
-              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus3} />
-              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano3} />
+              <input type="text" className="ataque-nome" placeholder="Nome" ref={inputAtaqueNome3} {...getInputProps()} />
+              <input type="text" className="ataque-bonus" placeholder="Bônus Ataque" ref={inputAtaqueBonus3} {...getInputProps()} />
+              <input type="text" className="ataque-dano" placeholder="Dano/Tipo" ref={inputAtaqueDano3} {...getInputProps()} />
             </div>
           </div>
-          <textarea className="campo tracos-personalidade" placeholder="Traços de Personalidade" ref={inputTracosPersonalidade} />
-          <textarea className="campo ideais" placeholder="Ideais" ref={inputIdeais} />
-          <textarea className="campo vinculos" placeholder="Vínculos" ref={inputVinculos} />
-          <textarea className="campo fraquezas" placeholder="Fraquezas" ref={inputFraquezas} />
-          <textarea className="campo ataques-conjuracao" placeholder="Ataques e Conjuração" ref={inputAtaquesConjuracao} />
-          <textarea className="campo caracteristicas-talentos" placeholder="Características & Talentos" ref={inputCaracteristicasTalentos} />
-          <input className="campo sabedoria-passiva" type="text" placeholder="Sabedoria Passiva (Percepção)" ref={inputSabedoriaPassiva}/>
-          <textarea  className="campo proficiencias-idiomas" placeholder="Outras Proficiências & Idiomas" ref={inputProficienciasIdiomas}/>
+          <textarea className="campo tracos-personalidade" placeholder="Traços de Personalidade" ref={inputTracosPersonalidade} {...getInputProps()} />
+          <textarea className="campo ideais" placeholder="Ideais" ref={inputIdeais} {...getInputProps()} />
+          <textarea className="campo vinculos" placeholder="Vínculos" ref={inputVinculos} {...getInputProps()} />
+          <textarea className="campo fraquezas" placeholder="Fraquezas" ref={inputFraquezas} {...getInputProps()} />
+          <textarea className="campo ataques-conjuracao" placeholder="Ataques e Conjuração" ref={inputAtaquesConjuracao} {...getInputProps()} />
+          <textarea className="campo caracteristicas-talentos" placeholder="Características & Talentos" ref={inputCaracteristicasTalentos} {...getInputProps()} />
+          <input className="campo sabedoria-passiva" type="text" placeholder="Sabedoria Passiva (Percepção)" ref={inputSabedoriaPassiva} {...getInputProps()}/>
+          <textarea  className="campo proficiencias-idiomas" placeholder="Outras Proficiências & Idiomas" ref={inputProficienciasIdiomas} {...getInputProps()}/>
           {/* Moedas */}
-          <input className="campo moeda-pc" type="text" placeholder="PC" ref={inputPC} />
-          <input className="campo moeda-pp" type="text" placeholder="PP" ref={inputPP} />
-          <input className="campo moeda-pe" type="text" placeholder="PE" ref={inputPE} />
-          <input className="campo moeda-po" type="text" placeholder="PO" ref={inputPO} />
-          <input className="campo moeda-pl" type="text" placeholder="PL" ref={inputPL} />
-          <textarea className="campo equipamento" placeholder="Equipamento" ref={inputEquipamento}/>
+          <input className="campo moeda-pc" type="text" placeholder="PC" ref={inputPC} {...getInputProps()} />
+          <input className="campo moeda-pp" type="text" placeholder="PP" ref={inputPP} {...getInputProps()} />
+          <input className="campo moeda-pe" type="text" placeholder="PE" ref={inputPE} {...getInputProps()} />
+          <input className="campo moeda-po" type="text" placeholder="PO" ref={inputPO} {...getInputProps()} />
+          <input className="campo moeda-pl" type="text" placeholder="PL" ref={inputPL} {...getInputProps()} />
+          <textarea className="campo equipamento" placeholder="Equipamento" ref={inputEquipamento} {...getInputProps()}/>
         </div>
-        <button className="botaoSalvar" onClick={salvarAlteracoes}>Salvar Alterações</button>
+        {isOwner && (
+          <button className="botaoSalvar" onClick={salvarAlteracoes}>Salvar Alterações</button>
+        )}
         <button className="botaoVoltar" onClick={voltar}>Descartar Alterações</button>
       </div>
     </div>
