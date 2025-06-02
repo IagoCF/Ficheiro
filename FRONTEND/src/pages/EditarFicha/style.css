@@ -1,0 +1,30 @@
+.botaoSalvar {
+    display: block;
+    margin: 0px auto 20px auto; /* 40px acima e 40px abaixo */
+    color: #fff;
+    border-radius: 30px;
+    background-color: #0D603E;
+    height: 40px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    width: 200px; /* largura opcional para melhor visual */
+}
+.botaoSalvar:hover {
+    background-color: #0A4B2D; /* cor mais escura ao passar o mouse */
+}
+
+.botaoVoltar {
+    display: block;
+    margin: 0px auto 40px auto; /* 40px acima e 40px abaixo */
+    color: #fff;
+    border-radius: 30px;
+    background-color: #c0392b;
+    height: 40px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    width: 200px; /* largura opcional para melhor visual */
+}

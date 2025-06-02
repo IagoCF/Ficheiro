@@ -25,6 +25,11 @@ function MinhasFichas() {
     navigate('/salas')
   }
 
+  // NOVO: Função para ir para edição da ficha
+  function irParaEditarFicha(idFicha) {
+    navigate(`/editarficha/${idFicha}`)
+  }
+
   // Carregar fichas do usuário ao entrar na página
   useEffect(() => {
     async function carregarFichas() {
@@ -62,7 +67,12 @@ function MinhasFichas() {
               <p className="nenhuma-ficha">Nenhuma ficha encontrada.</p>
             ) : (
               fichas.map((ficha) => (
-                <div className="card-ficha" key={ficha.id}>
+                <div
+                  className="card-ficha"
+                  key={ficha.id}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => irParaEditarFicha(ficha.id)}
+                >
                   <div className="ficha-imagem-placeholder"></div>
                   <div className="ficha-info">
                     <h3>{ficha.nomePersonagem}</h3>

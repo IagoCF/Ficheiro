@@ -60,3 +60,49 @@ export function salvarFicha(req, res) {
         res.status(201).json({ mensagem: 'Ficha salva com sucesso!', id: resultado.insertId });
     });
 }
+
+export function editarFicha(req, res) {
+    const id = req.params.id;
+    const dados = req.body;
+
+    // Remove campos que não devem ser atualizados
+    delete dados.id;
+    delete dados.idUsuario; // Se não quiser permitir troca de usuário
+
+    // Monta dinamicamente os campos a serem atualizados
+    const campos = Object.keys(dados).filter(key => dados[key] !== null && dados[key] !== undefined);
+    if (campos.length === 0) {
+        return res.status(400).json({ erro: 'Nenhum campo enviado para atualização.' });
+    }
+
+    const setClause = campos.map(campo => `${campo} = ?`).join(', ');
+    const values = campos.map(campo => dados[campo]);
+    values.push(id);
+
+    const sql = `UPDATE ficha SET ${setClause} WHERE id = ?`;
+
+    conexao.query(sql, values, function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao atualizar ficha:', erro);
+            return res.status(500).json({ erro: 'Erro ao atualizar ficha.' });
+        }
+        res.json({ mensagem: 'Ficha atualizada com sucesso!' });
+    });
+}
+
+export function buscarFichaPorId(req, res) {
+    const id = req.params.id;
+
+    const sql = 'SELECT * FROM ficha WHERE id = ?';
+    conexao.query(sql, [id], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao buscar ficha:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar ficha.' });
+        }
+        if (resultado.length === 0) {
+            return res.status(404).json({ erro: 'Ficha não encontrada.' });
+        }
+        res.json(resultado[0]);
+    });
+}
+
