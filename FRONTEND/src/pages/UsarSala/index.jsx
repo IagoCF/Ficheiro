@@ -16,7 +16,7 @@ function UsarSala() {
 
   // Exemplo de fichas para teste
   const [fichas] = useState([
-    /*{
+    {
       id: 1,
       nomePersonagem: "Arthas",
       classe: "Paladino",
@@ -29,7 +29,7 @@ function UsarSala() {
       classe: "Paladino",
       raca: "Humano",
       nivel: 5
-    }*/
+    }
   ])
 
   // Estado de drag para cada ficha

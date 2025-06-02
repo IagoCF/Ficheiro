@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import './style.css'
+import api from '../../services/api'
+import { useRef } from 'react'
 
 function CriarSala() {
     const navigate = useNavigate()
     const userId = localStorage.getItem('usuario')
-    const userApelido = localStorage.getItem('apelido')
-    const userEmail = localStorage.getItem('email')
-    const userIdade = localStorage.getItem('idade')
-    const userIngresso = localStorage.getItem('ingresso')
+    const nomeSalaRef = useRef()
+    const sistemaRef = useRef()
+    const descricaoRef = useRef()
+    const senhaRef = useRef()
 
     function irParaHomeLogin() {
         navigate('/homelogin')
@@ -24,6 +26,37 @@ function CriarSala() {
 
     function irParaUsarSala() {
         navigate('/usarsala')
+    }
+
+    async function salvarSala() {
+        const nome = nomeSalaRef.current.value
+        const sistema = sistemaRef.current.value
+        const descricao = descricaoRef.current.value
+        const senha = senhaRef.current.value
+        const criada = new Date().toISOString().slice(0, 10)
+
+        if (!nome || !sistema || !descricao) {
+            alert("Por favor, preencha todos os campos obrigatórios.")
+            return
+        }
+
+        const payload = {
+            nome,
+            sistema,
+            descricao,
+            senha,
+            idUsuarioCriador: userId,
+            criada
+        }
+        console.log('Enviando para o backend:', payload)
+
+        try {
+            await api.post('/sala', payload)
+            alert('Sala criada com sucesso!')
+            irParaUsarSala()
+        } catch (err) {
+            alert(err)
+        }
     }
 
     return (
@@ -45,12 +78,37 @@ function CriarSala() {
                 </div>
                 <div className="infoSala">
                     <form>
-                        <input placeholder="Nome da Sala" name="nomeSala" type="text" className="inputCriarSala"/>
-                        <select id="sistema" name="sistema" className="inputCriarSala">
+                        <input
+                            placeholder="Nome da Sala"
+                            name="nomeSala"
+                            type="text"
+                            className="inputCriarSala"
+                            ref={nomeSalaRef}
+                        />
+                        <select
+                            id="sistema"
+                            name="sistema"
+                            className="inputCriarSala"
+                            ref={sistemaRef}
+                        >
                             <option value="1">Dungeons & Dragons</option>
                         </select>
-                        <textarea id="descricao" name="descricao" className="descricaoSala" placeholder="Descrição" rows={4} style={{ resize: "none" }}/>
-                        <input placeholder="Senha (opcional)" name="senha" type="password" className="inputCriarSala"/>
+                        <textarea
+                            id="descricao"
+                            name="descricao"
+                            className="descricaoSala"
+                            placeholder="Descrição"
+                            rows={4}
+                            style={{ resize: "none" }}
+                            ref={descricaoRef}
+                        />
+                        <input
+                            placeholder="Senha (opcional)"
+                            name="senha"
+                            type="password"
+                            className="inputCriarSala"
+                            ref={senhaRef}
+                        />
                     </form>
                     <div className="linha-vertical"></div>
                     <div className="imagemSala">
@@ -58,7 +116,7 @@ function CriarSala() {
                         <p className="imagem-label">Imagem da sala</p>
                     </div>
                 </div>
-                <button type="button" className="btn-salvar" onClick={irParaUsarSala}>Salvar</button>
+                <button type="button" className="btn-salvar" onClick={salvarSala}>Salvar</button>
             </div>
         </div>
     )
