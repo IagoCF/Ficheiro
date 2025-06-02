@@ -3,6 +3,7 @@ import Logo from '../../assets/logo.png'
 import FichaImg from '../../assets/ficha1.jpg'
 import './style.css'
 import { useRef } from 'react'
+import api from '../../services/api' // Importe seu axios/api configurado aqui
 
 function CriarFicha() {
   const navigate = useNavigate()
@@ -136,6 +137,124 @@ function CriarFicha() {
 
   function irParaPerfil() {
     navigate('/perfil')
+  }
+
+  async function salvarFicha() {
+    const ficha = {
+      idUsuario: localStorage.getItem('usuario'), // ajuste conforme sua lógica de usuário
+      nomePersonagem: inputNome.current.value,
+      classe: inputClasse.current.value,
+      nivel: parseInt(inputNivel.current.value) || 0,
+      raca: inputRaca.current.value,
+      antecedente: inputAntecedente.current.value,
+      alinhamento: inputAlinhamento.current.value,
+      nomeJogador: inputJogador.current.value,
+      pontosExperiencia: parseInt(inputXp.current.value) || 0,
+      forcaMod: parseInt(inputForcaMod.current.value) || 0,
+      forca: parseInt(inputForca.current.value) || 0,
+      destrezaMod: parseInt(inputDestrezaMod.current.value) || 0,
+      destreza: parseInt(inputDestreza.current.value) || 0,
+      constituicaoMod: parseInt(inputConstituicaoMod.current.value) || 0,
+      constituicao: parseInt(inputConstituicao.current.value) || 0,
+      sabedoriaMod: parseInt(inputSabedoriaMod.current.value) || 0,
+      sabedoria: parseInt(inputSabedoria.current.value) || 0,
+      carismaMod: parseInt(inputCarismaMod.current.value) || 0,
+      carisma: parseInt(inputCarisma.current.value) || 0,
+      inspiracao: parseInt(inputInspiracao.current.value) || 0,
+      proficiencia: parseInt(inputProficiencia.current.value) || 0,
+      classeArmadura: parseInt(inputCa.current.value) || 0,
+      iniciativa: parseInt(inputIniciativa.current.value) || 0,
+      deslocamento: parseInt(inputDeslocamento.current.value) || 0,
+      salvaProficienteFor: inputSalvaguardaForca.current.checked,
+      salvaguardaFor: parseInt(inputNumeroSalvaguardaForca.current.value) || 0,
+      salvaProficienteDex: inputSalvaguardaDestreza.current.checked,
+      salvaguardaDex: parseInt(inputNumeroSalvaguardaDestreza.current.value) || 0,
+      salvaProficienteCon: inputSalvaguardaConstituicao.current.checked,
+      salvaguardaCon: parseInt(inputNumeroSalvaguardaConstituicao.current.value) || 0,
+      salvaProficienteInt: inputSalvaguardaInteligencia.current.checked,
+      salvaguardaInt: parseInt(inputNumeroSalvaguardaInteligencia.current.value) || 0,
+      salvaProficienteSab: inputSalvaguardaSabedoria.current.checked,
+      salvaguardaSab: parseInt(inputNumeroSalvaguardaSabedoria.current.value) || 0,
+      salvaProficienteCar: inputSalvaguardaCarisma.current.checked,
+      salvaguardaCar: parseInt(inputNumeroSalvaguardaCarisma.current.value) || 0,
+      perProficienteAcr: inputPericiaAcrobacia.current.checked,
+      periciaAcr: parseInt(inputNumeroPericiaAcrobacia.current.value) || 0,
+      perProficienteArc: inputPericiaArcanismo.current.checked,
+      periciaArc: parseInt(inputNumeroPericiaArcanismo.current.value) || 0,
+      perProficienteAtl: inputPericiaAtletismo.current.checked,
+      periciaAtl: parseInt(inputNumeroPericiaAtletismo.current.value) || 0,
+      perProficienteAtu: inputPericiaAtuacao.current.checked,
+      periciaAtu: parseInt(inputNumeroPericiaAtuacao.current.value) || 0,
+      perProficienteEng: inputPericiaEnganacao.current.checked,
+      periciaEng: parseInt(inputNumeroPericiaEnganacao.current.value) || 0,
+      perProficienteFur: inputPericiaFurtividade.current.checked,
+      periciaFur: parseInt(inputNumeroPericiaFurtividade.current.value) || 0,
+      perProficienteHis: inputPericiaHistoria.current.checked,
+      periciaHis: parseInt(inputNumeroPericiaHistoria.current.value) || 0,
+      perProficienteInt: inputPericiaIntimidacao.current.checked,
+      periciaInt: parseInt(inputNumeroPericiaIntimidacao.current.value) || 0,
+      perProficienteInv: inputPericiaIntuicao.current.checked,
+      periciaInv: parseInt(inputNumeroPericiaIntuicao.current.value) || 0,
+      perProficienteLid: inputPericiaLidarComAnimais.current.checked,
+      periciaLid: parseInt(inputNumeroPericiaLidarComAnimais.current.value) || 0,
+      perProficienteMed: inputPericiaMedicina.current.checked,
+      periciaMed: parseInt(inputNumeroPericiaMedicina.current.value) || 0,
+      perProficienteNat: inputPericiaNatureza.current.checked,
+      periciaNat: parseInt(inputNumeroPericiaNatureza.current.value) || 0,
+      perProficientePerc: inputPericiaPercepcao.current.checked,
+      periciaPer: parseInt(inputNumeroPericiaPercepcao.current.value) || 0,
+      perProficientePers: inputPericiaPersuasao.current.checked,
+      periciaPers: parseInt(inputNumeroPericiaPersuasao.current.value) || 0,
+      perProficientePre: inputPericiaPrestidigitacao.current.checked,
+      periciaPre: parseInt(inputNumeroPericiaPrestidigitacao.current.value) || 0,
+      perProficienteRel: inputPericiaReligiao.current.checked,
+      periciaRel: parseInt(inputNumeroPericiaReligiao.current.value) || 0,
+      perProficienteSob: inputPericiaSobrevivencia.current.checked,
+      periciaSob: parseInt(inputNumeroPericiaSobrevivencia.current.value) || 0,
+      pvMaximo: parseInt(inputPontosVida.current.value) || 0,
+      pvAtual: parseInt(inputPontosVidaAtuais.current.value) || 0,
+      pvTemporario: parseInt(inputPontosVidaTemporarios.current.value) || 0,
+      dadoVidaTotal: parseInt(inputDadoVidaTotal.current.value) || 0,
+      dadoVida: parseInt(inputDadoVida.current.value) || 0,
+      sucesso1: inputSucessoMorte1.current.checked,
+      sucesso2: inputSucessoMorte2.current.checked,
+      sucesso3: inputSucessoMorte3.current.checked,
+      falha1: inputFalhaMorte1.current.checked,
+      falha2: inputFalhaMorte2.current.checked,
+      falha3: inputFalhaMorte3.current.checked,
+      tracoPersonalidade: inputTracosPersonalidade.current.value,
+      ideais: inputIdeais.current.value,
+      vinculos: inputVinculos.current.value,
+      fraquezas: inputFraquezas.current.value,
+      ataqueNome1: inputAtaqueNome1.current.value,
+      ataqueBonus1: inputAtaqueBonus1.current.value,
+      ataqueDano1: inputAtaqueDano1.current.value,
+      ataqueNome2: inputAtaqueNome2.current.value,
+      ataqueBonus2: inputAtaqueBonus2.current.value,
+      ataqueDano2: inputAtaqueDano2.current.value,
+      ataqueNome3: inputAtaqueNome3.current.value,
+      ataqueBonus3: inputAtaqueBonus3.current.value,
+      ataqueDano3: inputAtaqueDano3.current.value,
+      ataquesConjuracoes: inputAtaquesConjuracao.current.value,
+      sabedoriaPassiva: parseInt(inputSabedoriaPassiva.current.value) || 0,
+      caracteristicasTalentos: inputCaracteristicasTalentos.current.value,
+      outrasProficiencias: inputProficienciasIdiomas.current.value,
+      pc: parseInt(inputPC.current.value) || 0,
+      pp: parseInt(inputPP.current.value) || 0,
+      pe: parseInt(inputPE.current.value) || 0,
+      po: parseInt(inputPO.current.value) || 0,
+      pl: parseInt(inputPL.current.value) || 0,
+      equipamento: inputEquipamento.current.value
+    }
+
+    try {
+      // Troque a linha abaixo para usar seu axios/api configurado, igual ao cadastro de usuário:
+      await api.post('/ficha', ficha)
+      alert('Ficha salva com sucesso!')
+      // Redirecione ou limpe o formulário se desejar
+    } catch (err) {
+      alert('Erro ao salvar ficha!')
+    }
   }
 
   return (
@@ -348,7 +467,7 @@ function CriarFicha() {
           <input className="campo moeda-pl" type="text" placeholder="PL" ref={inputPL} />
           <textarea className="campo equipamento" placeholder="Equipamento" ref={inputEquipamento}/>
         </div>
-        <button className="botaoSalvar">Salvar</button>
+        <button className="botaoSalvar" onClick={salvarFicha}>Salvar</button>
       </div>
     </div>
   )
