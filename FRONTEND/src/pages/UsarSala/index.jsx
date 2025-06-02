@@ -14,9 +14,9 @@ function UsarSala() {
   ]
   const idSala = "#000001"
 
-  // Exemplo de ficha para teste
+  // Exemplo de fichas para teste
   const [fichas] = useState([
-    {
+    /*{
       id: 1,
       nomePersonagem: "Arthas",
       classe: "Paladino",
@@ -29,91 +29,108 @@ function UsarSala() {
       classe: "Paladino",
       raca: "Humano",
       nivel: 5
-    }
+    }*/
   ])
 
-  // Drag state
-  const cardRef = useRef(null)
+  // Estado de drag para cada ficha
   const areaRef = useRef(null)
-  const [drag, setDrag] = useState({
-    dragging: false,
-    x: null,
-    y: null,
-    offsetX: 0,
-    offsetY: 0,
-    bounds: null
-  })
+  const cardRefs = useRef({})
+  const [drags, setDrags] = useState(() =>
+    fichas.reduce((acc, ficha) => {
+      acc[ficha.id] = {
+        dragging: false,
+        x: null,
+        y: null,
+        offsetX: 0,
+        offsetY: 0,
+        bounds: null
+      }
+      return acc
+    }, {})
+  )
 
-  function startDrag(e) {
+  function startDrag(e, fichaId) {
     e.preventDefault()
-    const card = cardRef.current
+    const card = cardRefs.current[fichaId]
     const area = areaRef.current
     const cardRect = card.getBoundingClientRect()
     const areaRect = area.getBoundingClientRect()
     const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX
     const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY
 
-    setDrag({
-      dragging: true,
-      offsetX: clientX - cardRect.left,
-      offsetY: clientY - cardRect.top,
-      x: cardRect.left,
-      y: cardRect.top,
-      bounds: {
-        left: areaRect.left,
-        top: areaRect.top,
-        right: areaRect.right - cardRect.width,
-        bottom: areaRect.bottom - cardRect.height
+    setDrags(drags => ({
+      ...drags,
+      [fichaId]: {
+        ...drags[fichaId],
+        dragging: true,
+        offsetX: clientX - cardRect.left,
+        offsetY: clientY - cardRect.top,
+        x: cardRect.left,
+        y: cardRect.top,
+        bounds: {
+          left: areaRect.left,
+          top: areaRect.top,
+          right: areaRect.right - cardRect.width,
+          bottom: areaRect.bottom - cardRect.height
+        }
       }
-    })
+    }))
     document.body.style.userSelect = "none"
   }
 
-  function onDrag(e) {
-    if (!drag.dragging) return
-    const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX
-    const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY
+  function onDrag(e, fichaId) {
+    setDrags(drags => {
+      const drag = drags[fichaId]
+      if (!drag.dragging) return drags
+      const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX
+      const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY
 
-    // Limitar dentro da área
-    let newX = clientX - drag.offsetX
-    let newY = clientY - drag.offsetY
-    if (drag.bounds) {
-      newX = Math.max(drag.bounds.left, Math.min(newX, drag.bounds.right))
-      newY = Math.max(drag.bounds.top, Math.min(newY, drag.bounds.bottom))
-    }
+      let newX = clientX - drag.offsetX
+      let newY = clientY - drag.offsetY
+      if (drag.bounds) {
+        newX = Math.max(drag.bounds.left, Math.min(newX, drag.bounds.right))
+        newY = Math.max(drag.bounds.top, Math.min(newY, drag.bounds.bottom))
+      }
 
-    setDrag(d => ({
-      ...d,
-      x: newX,
-      y: newY
-    }))
+      return {
+        ...drags,
+        [fichaId]: {
+          ...drag,
+          x: newX,
+          y: newY
+        }
+      }
+    })
   }
 
-  function stopDrag() {
-    setDrag(d => ({ ...d, dragging: false }))
+  function stopDrag(fichaId) {
+    setDrags(drags => ({
+      ...drags,
+      [fichaId]: { ...drags[fichaId], dragging: false }
+    }))
     document.body.style.userSelect = ""
   }
 
-  // Listeners para drag global
+  // Listeners para drag global de cada ficha
   useEffect(() => {
-    if (drag.dragging) {
-      window.addEventListener('mousemove', onDrag)
-      window.addEventListener('mouseup', stopDrag)
-      window.addEventListener('touchmove', onDrag)
-      window.addEventListener('touchend', stopDrag)
-    } else {
-      window.removeEventListener('mousemove', onDrag)
-      window.removeEventListener('mouseup', stopDrag)
-      window.removeEventListener('touchmove', onDrag)
-      window.removeEventListener('touchend', stopDrag)
-    }
-    return () => {
-      window.removeEventListener('mousemove', onDrag)
-      window.removeEventListener('mouseup', stopDrag)
-      window.removeEventListener('touchmove', onDrag)
-      window.removeEventListener('touchend', stopDrag)
-    }
-  }, [drag.dragging])
+    fichas.forEach(ficha => {
+      if (drags[ficha.id]?.dragging) {
+        const move = e => onDrag(e, ficha.id)
+        const up = () => stopDrag(ficha.id)
+        window.addEventListener('mousemove', move)
+        window.addEventListener('mouseup', up)
+        window.addEventListener('touchmove', move)
+        window.addEventListener('touchend', up)
+        return () => {
+          window.removeEventListener('mousemove', move)
+          window.removeEventListener('mouseup', up)
+          window.removeEventListener('touchmove', move)
+          window.removeEventListener('touchend', up)
+        }
+      }
+    })
+    // eslint-disable-next-line
+  }, [drags, fichas])
 
   function irParaCriarFichas() {
     navigate('/criarficha')
@@ -163,37 +180,39 @@ function UsarSala() {
               <h1 className="titulo-centro">{nomeSala}</h1>
               <button onClick={irParaCriarFichas} className="botao-centro">Criar uma ficha</button>
               <button onClick={irParaMinhasFichas} className="botao-centro">Inserir ficha existente</button>
-              <button className="botao-centro">Visualizar Fichas</button>
             </div>
           ) : (
-            fichas.map((ficha, idx) => (
-              <div
-                key={ficha.id}
-                className="card-ficha draggable-card"
-                ref={cardRef}
-                style={{
-                  position: 'fixed',
-                  left: drag.x !== null ? drag.x : '50%',
-                  top: drag.y !== null ? drag.y : '50%',
-                  transform: drag.x !== null && drag.y !== null
-                    ? 'none'
-                    : 'translate(-50%, -50%)',
-                  zIndex: 100,
-                  cursor: drag.dragging ? 'grabbing' : 'grab',
-                  touchAction: 'none'
-                }}
-                onMouseDown={startDrag}
-                onTouchStart={startDrag}
-              >
-                <div className="ficha-imagem-placeholder"></div>
-                <div className="ficha-info">
-                  <h3>{ficha.nomePersonagem}</h3>
-                  <p>Classe: {ficha.classe}</p>
-                  <p>Raça: {ficha.raca}</p>
-                  <p>Nível: {ficha.nivel}</p>
+            fichas.map((ficha) => {
+              const drag = drags[ficha.id] || {}
+              return (
+                <div
+                  key={ficha.id}
+                  className="card-ficha draggable-card"
+                  ref={el => cardRefs.current[ficha.id] = el}
+                  style={{
+                    position: 'fixed',
+                    left: drag.x !== null ? drag.x : '50%',
+                    top: drag.y !== null ? drag.y : '50%',
+                    transform: drag.x !== null && drag.y !== null
+                      ? 'none'
+                      : 'translate(-50%, -50%)',
+                    zIndex: 100,
+                    cursor: drag.dragging ? 'grabbing' : 'grab',
+                    touchAction: 'none'
+                  }}
+                  onMouseDown={e => startDrag(e, ficha.id)}
+                  onTouchStart={e => startDrag(e, ficha.id)}
+                >
+                  <div className="ficha-imagem-placeholder"></div>
+                  <div className="ficha-info">
+                    <h3>{ficha.nomePersonagem}</h3>
+                    <p>Classe: {ficha.classe}</p>
+                    <p>Raça: {ficha.raca}</p>
+                    <p>Nível: {ficha.nivel}</p>
+                  </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           )}
           {fichas.length ? (
             <div className="botoes-icones-bottom fade-in">
