@@ -1,11 +1,14 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import './style.css'
 import { useRef, useEffect, useState } from 'react';
 import api from '../../services/api'
 
 function MinhasFichas() {
+  const location = useLocation()
   const navigate = useNavigate()
+  const fromSala = location.state?.fromSala
+  const idSala = location.state?.idSala
   const userId = localStorage.getItem('usuario')
   const [fichas, setFichas] = useState([])
 
@@ -43,6 +46,22 @@ function MinhasFichas() {
     carregarFichas()
   }, [userId])
 
+  function handleFichaClick(ficha) {
+    if (fromSala && idSala) {
+      // Chame a API para inserir a ficha na sala
+      api.post('/salaFichas', {
+        idSala,
+        idFicha: ficha.id
+      }).then(() => {
+        // Volte para a sala ou mostre uma mensagem de sucesso
+        navigate('/usarsala')
+      })
+    } else {
+      // Comportamento padrão: editar ficha
+      navigate(`/editarficha/${ficha.id}`)
+    }
+  }
+
   return (
     <div className="background2">
       <header>
@@ -71,7 +90,7 @@ function MinhasFichas() {
                   className="card-ficha"
                   key={ficha.id}
                   style={{ cursor: 'pointer' }}
-                  onClick={() => irParaEditarFicha(ficha.id)}
+                  onClick={() => handleFichaClick(ficha)}
                 >
                   <div className="ficha-imagem-placeholder"></div>
                   <div className="ficha-info">

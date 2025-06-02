@@ -34,7 +34,19 @@ function UsarSala() {
   }, [idSala])
 
   // Exemplo de fichas para teste
-  const [fichas] = useState([])
+  const [fichas, setFichas] = useState([])
+
+  useEffect(() => {
+    async function fetchFichas() {
+      try {
+        const response = await api.get(`/salaFichas/${idSala}`)
+        setFichas(response.data)
+      } catch (error) {
+        console.error('Erro ao buscar fichas da sala:', error)
+      }
+    }
+    if (idSala) fetchFichas()
+  }, [idSala])
 
   // Estado de drag para cada ficha
   const areaRef = useRef(null)
@@ -141,7 +153,7 @@ function UsarSala() {
   }
 
   function irParaMinhasFichas() {
-    navigate('/minhasfichas')
+    navigate('/minhasfichas', { state: { fromSala: true, idSala } })
   }
 
   function irParaSalas() { navigate('/salas') }
