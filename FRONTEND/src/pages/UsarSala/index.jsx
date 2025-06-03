@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './style.css'
 import api from '../../services/api'
+import axios from 'axios'
 
 function UsarSala() {
   const navigate = useNavigate()
@@ -51,19 +52,47 @@ function UsarSala() {
   // Estado de drag para cada ficha
   const areaRef = useRef(null)
   const cardRefs = useRef({})
-  const [drags, setDrags] = useState(() =>
-    fichas.reduce((acc, ficha) => {
-      acc[ficha.id] = {
-        dragging: false,
-        x: null,
-        y: null,
-        offsetX: 0,
-        offsetY: 0,
-        bounds: null
-      }
-      return acc
-    }, {})
-  )
+  const [drags, setDrags] = useState({})
+
+  // Atualiza drags quando fichas mudam
+  useEffect(() => {
+    if (!fichas.length) return;
+
+    async function fetchPositionsAndAlert() {
+      const positions = await Promise.all(
+        fichas.map(async ficha => {
+          try {
+            const res = await api.get(`/salaFichas/posicao/${idSala}/${ficha.id}`);
+            const x = res.data.x ?? res.data.posicao?.x ?? null;
+            const y = res.data.y ?? res.data.posicao?.y ?? null;
+            // Removido o alert
+            return { id: ficha.id, x, y };
+          } catch {
+            // Removido o alert
+            return { id: ficha.id, x: null, y: null };
+          }
+        })
+      );
+
+      // Inicializa drags com as posições buscadas
+      const initialDrags = fichas.reduce((acc, ficha) => {
+        const pos = positions.find(p => p.id === ficha.id) || {};
+        acc[ficha.id] = {
+          dragging: false,
+          x: pos.x,
+          y: pos.y,
+          offsetX: 0,
+          offsetY: 0,
+          bounds: null
+        };
+        return acc;
+      }, {});
+      setDrags(initialDrags);
+    }
+
+    fetchPositionsAndAlert();
+  }, [fichas, idSala]);
+
   const [draggingId, setDraggingId] = useState(null)
   const [dragged, setDragged] = useState(false)
 
@@ -122,11 +151,24 @@ function UsarSala() {
   }
 
   function stopDrag(fichaId) {
-    setDrags(drags => ({
-      ...drags,
-      [fichaId]: { ...drags[fichaId], dragging: false }
-    }))
-    document.body.style.userSelect = ""
+    setDrags(drags => {
+      const { x, y } = drags[fichaId] || {};
+      // Salva a posição no banco de dados
+      if (x !== null && y !== null) {
+        api.put('/salaFichas/posicao', {
+          idSala,
+          idFicha: fichaId,
+          x,
+          y
+        })
+        .catch(err => console.error('Erro ao salvar posição:', err));
+      }
+      return {
+        ...drags,
+        [fichaId]: { ...drags[fichaId], dragging: false }
+      }
+    });
+    document.body.style.userSelect = "";
   }
 
   // Listeners para drag global de cada ficha
@@ -163,6 +205,109 @@ function UsarSala() {
   function irParaPerfil() { navigate('/perfil') }
 
   function irParaHomeLogin() { navigate('/homelogin') }
+
+  // Componente para cada ficha
+  function CardFicha({ idFicha }) {
+    const [posicao, setPosicao] = useState({ x: 0, y: 0 })
+
+    useEffect(() => {
+      async function buscarPosicao() {
+        try {
+          const res = await axios.get(
+            `/sua-rota/buscar-posicao-ficha?idSala=${idSala}&idFicha=${idFicha}`
+          );
+          setPosicao({ x: res.data.x, y: res.data.y });
+        } catch (err) {
+          // Trate erro ou use posição padrão
+          setPosicao({ x: 0, y: 0 });
+        }
+      }
+      buscarPosicao();
+    }, [idSala, idFicha]);
+
+    const drag = drags[idFicha] || {}
+
+    return (
+      <div
+        key={idFicha}
+        className="card-ficha draggable-card"
+        ref={el => cardRefs.current[idFicha] = el}
+        style={{
+          position: 'fixed',
+          left: drag.x !== null ? drag.x : posicao.x,
+          top: drag.y !== null ? drag.y : posicao.y,
+          transform: drag.x !== null && drag.y !== null
+            ? 'none'
+            : 'translate(-50%, -50%)',
+          zIndex: 100,
+          cursor: drag.dragging ? 'grabbing' : 'grab',
+          touchAction: 'none'
+        }}
+        onMouseDown={e => {
+          setDraggingId(idFicha)
+          setDragged(false)
+          ficha._startX = e.clientX
+          ficha._startY = e.clientY
+          startDrag(e, idFicha)
+        }}
+        onMouseMove={e => {
+          if (draggingId === idFicha && !dragged) {
+            const dx = Math.abs(e.clientX - ficha._startX)
+            const dy = Math.abs(e.clientY - ficha._startY)
+            if (dx > 5 || dy > 5) setDragged(true)
+          }
+        }}
+        onMouseUp={e => {
+          setDraggingId(null)
+          setDragged(false)
+        }}
+        onMouseLeave={() => {
+          setDraggingId(null)
+          setDragged(false)
+        }}
+      >
+        <div className="ficha-imagem-placeholder"></div>
+        <div className="ficha-info">
+          <h3>{ficha.nomePersonagem}</h3>
+          <p>Classe: {ficha.classe}</p>
+          <p>Raça: {ficha.raca}</p>
+          <p>Nível: {ficha.nivel}</p>
+        </div>
+        <button
+          className="botao-olho-ficha"
+          title="Visualizar ficha"
+          onClick={e => {
+            e.stopPropagation()
+            navigate(`/editarficha/${ficha.id}`, {
+              state: {
+                fromSala: true,
+                idSala,
+                criadorId: ficha.idUsuario
+              }
+            })
+          }}
+          style={{
+            position: 'absolute',
+            bottom: 12,
+            right: 12,
+            background: 'rgba(255,255,255,0.85)',
+            border: 'none',
+            borderRadius: '50%',
+            width: 36,
+            height: 36,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.10)',
+            cursor: 'pointer',
+            fontSize: 20
+          }}
+        >
+          <span role="img" aria-label="Visualizar">👁️</span>
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className="background2">
@@ -284,10 +429,8 @@ function UsarSala() {
           )}
           {fichas.length ? (
             <div className="botoes-icones-bottom fade-in">
-              <button onClick={irParaMinhasFichas} title="Chat" className="icone-botao"><span role="img" aria-label="chat">💬</span></button>
-              <button onClick={irParaCriarFichas} title="Rolagem" className="icone-botao"><span role="img" aria-label="dice">🎲</span></button>
-              <button title="Notas" className="icone-botao"><span role="img" aria-label="notas">📝</span></button>
-              <button title="Configurações" className="icone-botao"><span role="img" aria-label="config">⚙️</span></button>
+              <button onClick={irParaMinhasFichas} title="Adicionar Ficha" className="icone-botao"><span role="img" aria-label="chat">🔗</span></button>
+              <button onClick={irParaCriarFichas} title="Criar Ficha" className="icone-botao"><span role="img" aria-label="dice">➕</span></button>
             </div>
           ) : null}
         </div>
