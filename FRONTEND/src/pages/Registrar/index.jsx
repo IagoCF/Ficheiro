@@ -12,6 +12,8 @@ function Registrar() {
   const inputEmail = useRef()
   const inputSenha = useRef()
   const inputConferirSenha = useRef()
+  const [dateType, setDateType] = useState('text')
+  const [dateValue, setDateValue] = useState('')
 
   function irParaHome() {
     navigate('/')
@@ -101,7 +103,19 @@ function Registrar() {
         <form>
           <h1>Cadastro de Usuários</h1>
           <input placeholder="Apelido" name="apelido" type="text" ref={inputApelido} />
-          <input placeholder="Idade" name="idade" type="date" ref={inputIdade} />
+          <input
+            placeholder="Data de Nascimento"
+            name="idade"
+            type={dateType}
+            ref={inputIdade}
+            value={dateValue}
+            onFocus={() => setDateType('date')}
+            onBlur={e => {
+              if (!e.target.value) setDateType('text')
+            }}
+            onChange={e => setDateValue(e.target.value)}
+            style={{ color: dateValue ? '#000' : '#888' }}
+          />
           <input placeholder="Email" name="email" type="email" ref={inputEmail} />
           <input placeholder="Senha" name="senha" type="password" ref={inputSenha} />
           <input placeholder="Conferir Senha" name="conferirSenha" type="password" ref={inputConferirSenha} />

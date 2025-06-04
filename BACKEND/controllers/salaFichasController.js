@@ -17,7 +17,7 @@ export function vincularFichaSala(req, res) {
 export function buscarFichasVinculadas(req, res) {
     const { idSala } = req.params;
     const sql = `
-      SELECT f.id, f.nomePersonagem, f.classe, f.raca, f.nivel
+      SELECT f.id, f.idUsuario, f.nomePersonagem, f.classe, f.raca, f.nivel
       FROM salaFichas sf
       JOIN ficha f ON sf.idFicha = f.id
       WHERE sf.idSala = ?
@@ -71,5 +71,23 @@ export function buscarPosicaoFicha(req, res) {
             return res.status(404).json({ erro: 'Posição não encontrada para essa ficha na sala.' });
         }
         res.json({ x: resultados[0].x, y: resultados[0].y });
+    });
+}
+
+export function desvincularFichaSala(req, res) {
+    const { idFicha, idSala } = req.body;
+
+    if (!idFicha || !idSala) {
+        return res.status(400).json({ erro: 'Parâmetros idFicha e idSala são obrigatórios.' });
+    }
+
+    const sql = 'DELETE FROM salaFichas WHERE idFicha = ? AND idSala = ?';
+
+    conexao.query(sql, [idFicha, idSala], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao desvincular ficha da sala:', erro);
+            return res.status(500).json({ erro: 'Erro ao desvincular ficha da sala.' });
+        }
+        res.json({ mensagem: 'Ficha desvinculada da sala com sucesso!', resultado });
     });
 }

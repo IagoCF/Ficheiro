@@ -146,6 +146,10 @@ function CriarFicha() {
     navigate('/minhasfichas')
   }
 
+  function irparaSalas() {
+    navigate('/salas')
+  }
+
   async function salvarFicha() {
     const ficha = {
       idUsuario: localStorage.getItem('usuario'), // ajuste conforme sua lógica de usuário
@@ -276,7 +280,7 @@ function CriarFicha() {
         </div>
         <nav>
           <a onClick={irParaHomeLogin} style={{ cursor: 'pointer' }}>Home</a>
-          <a style={{ cursor: 'pointer' }}>Salas</a>
+          <a onClick={irparaSalas} style={{ cursor: 'pointer' }}>Salas</a>
           <a onClick={irParaPerfil} style={{ cursor: 'pointer' }} className="botaoSelecionado">Perfil</a>
         </nav>
       </header>

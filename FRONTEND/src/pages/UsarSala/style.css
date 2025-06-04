@@ -362,3 +362,25 @@ nav a:hover {
 .botao-olho-ficha:hover {
   background: #e0e0e0;
 }
+
+.botao-remover-ficha {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(255,255,255,0.85); /* fundo branco translúcido igual ao botão de olho */
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.2s;
+}
+
+.botao-remover-ficha:hover {
+    background: #e0e0e0;
+}

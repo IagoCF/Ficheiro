@@ -95,117 +95,6 @@ nav a:hover {
     font-size: 12px;
     margin: 0;
     font-weight: normal;
-}
-
-.botoesImagem{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: space-between;
-    width: 80%;
-    margin-right: 5%;
-    margin-left: 10%;
-}
-
-.imagemSalas img {
-    width: 100%;
-}* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-body, html {
-    height: 100%;
-    font-family: Arial, sans-serif;
-}
-
-/* Imagem de fundo */
-.background {
-    background-image: url('src/assets/background.jpg');
-    background-size: cover;
-    background-position: top center;
-    height: 100vh;
-    position: relative;
-}
-
-.background2{
-    background-image: url('src/assets/background2.jpg');
-    background-size: cover;
-    background-position: top center;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Header fixo no topo */
-header {
-    background-color: black;
-    color: white;
-    padding: 10px 40px;
-    height: 10vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header .logo {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-header .logo img {
-    width: 220px;
-    margin-right: 10px;
-}
-
-nav a {
-    font-size: 18px;
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    padding: 10px 20px;
-}
-
-.botaoSelecionado {
-    color: #5AD618;
-}
-
-nav a:hover {
-    color: #5AD618;
-}
-
-.botoesSalas{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: space-between;
-    width: 60%;
-    height: 45vh;
-    margin-top: 5%;
-    gap: 10px;
-}
-
-.botoesSalas button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 25%;
-    border-radius: 90px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 32px;
-}
-
-.botaoSala p {
-    font-size: 12px;
-    margin: 0;
-    font-weight: normal;
     width: 100%;
 }
 
@@ -346,4 +235,24 @@ nav a:hover {
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.96);}
   to { opacity: 1; transform: scale(1);}
+}
+
+/* Garante que a imagem do elfo fique sempre encostada no fundo */
+.imagemSalas {
+    position: absolute;
+    right: 0;
+    bottom: 0;/* ajuste conforme necessário */
+    height: auto;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    pointer-events: none; /* opcional: impede clique na imagem */
+    padding-right: 20px;
+}
+
+.imagemSalas img {
+    width: 100%;
+    height: auto;
+    display: block;
 }

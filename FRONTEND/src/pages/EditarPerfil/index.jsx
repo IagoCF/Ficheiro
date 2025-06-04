@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import './style.css'
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import api from '../../services/api'
 
 function EditarPerfil() {
@@ -18,6 +18,9 @@ function EditarPerfil() {
   const inputNovaSenha = useRef();
   const inputSenha = useRef();
   const inputConfirmarSenha = useRef();
+
+  const [dateType, setDateType] = useState('text')
+  const [dateValue, setDateValue] = useState('')
 
   function irParaHomeLogin() {
     navigate('/homelogin')
@@ -147,7 +150,19 @@ function EditarPerfil() {
           <div className="coluna-esquerda">
             <input placeholder="Alterar apelido" name="apelido" type="text" ref={inputApelido} />
             <input placeholder="Alterar email" name="email" type="email" ref={inputEmail} />
-            <input placeholder="Alterar idade" name="idade" type="date" ref={inputIdade} />
+            <input
+              placeholder="Alterar idade"
+              name="idade"
+              type={dateType}
+              ref={inputIdade}
+              value={dateValue}
+              onFocus={() => setDateType('date')}
+              onBlur={e => {
+                if (!e.target.value) setDateType('text')
+              }}
+              onChange={e => setDateValue(e.target.value)}
+              style={{ color: dateValue ? '#000' : '#888' }}
+            />
             <button type="button" className="btn-salvar" onClick={SalvarAlteracao}>Salvar</button>
           </div>
           <div className="coluna-direita">

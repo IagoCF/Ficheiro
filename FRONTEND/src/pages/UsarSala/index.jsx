@@ -7,6 +7,7 @@ import axios from 'axios'
 function UsarSala() {
   const navigate = useNavigate()
   const idSala = localStorage.getItem('sala')
+  const idUsuario = localStorage.getItem('usuario')
 
   // Estado para integrantes reais
   const [integrantes, setIntegrantes] = useState([])
@@ -152,16 +153,16 @@ function UsarSala() {
 
   function stopDrag(fichaId) {
     setDrags(drags => {
-      const { x, y } = drags[fichaId] || {};
-      // Salva a posição no banco de dados
+      // Se a ficha foi removida, não faz nada
+      if (!drags[fichaId] || !fichas.some(f => f.id === fichaId)) return drags;
+      const { x, y } = drags[fichaId];
       if (x !== null && y !== null) {
         api.put('/salaFichas/posicao', {
           idSala,
           idFicha: fichaId,
           x,
           y
-        })
-        .catch(err => console.error('Erro ao salvar posição:', err));
+        }).catch(err => console.error('Erro ao salvar posição:', err));
       }
       return {
         ...drags,
@@ -173,23 +174,31 @@ function UsarSala() {
 
   // Listeners para drag global de cada ficha
   useEffect(() => {
+    const listeners = [];
+
     fichas.forEach(ficha => {
       if (drags[ficha.id]?.dragging) {
         const move = e => onDrag(e, ficha.id)
-        const up = () => stopDrag(ficha.id)
+        const up = () => {
+          // Só chama stopDrag se a ficha ainda existe em drags
+          if (drags[ficha.id]) stopDrag(ficha.id)
+        }
         window.addEventListener('mousemove', move)
         window.addEventListener('mouseup', up)
         window.addEventListener('touchmove', move)
         window.addEventListener('touchend', up)
-        return () => {
-          window.removeEventListener('mousemove', move)
-          window.removeEventListener('mouseup', up)
-          window.removeEventListener('touchmove', move)
-          window.removeEventListener('touchend', up)
-        }
+        listeners.push({ move, up })
       }
     })
-    // eslint-disable-next-line
+
+    return () => {
+      listeners.forEach(({ move, up }) => {
+        window.removeEventListener('mousemove', move)
+        window.removeEventListener('mouseup', up)
+        window.removeEventListener('touchmove', move)
+        window.removeEventListener('touchend', up)
+      })
+    }
   }, [drags, fichas])
 
   function irParaCriarFichas() {
@@ -343,7 +352,7 @@ function UsarSala() {
             </div>
           ) : (
             fichas.map((ficha) => {
-              const drag = drags[ficha.id] || {}
+              const drag = drags[ficha.id] || { x: null, y: null, dragging: false }
 
               return (
                 <div
@@ -362,6 +371,8 @@ function UsarSala() {
                     touchAction: 'none'
                   }}
                   onMouseDown={e => {
+                    // Se clicou em um botão, não inicia drag
+                    if (e.target.closest('button')) return;
                     setDraggingId(ficha.id)
                     setDragged(false)
                     ficha._startX = e.clientX
@@ -407,7 +418,7 @@ function UsarSala() {
                     style={{
                       position: 'absolute',
                       bottom: 12,
-                      right: 12,
+                      right: idUsuario === String(ficha.idUsuario) ? 56 : 12, // Ajusta posição se tiver botão de remover
                       background: 'rgba(255,255,255,0.85)',
                       border: 'none',
                       borderRadius: '50%',
@@ -423,6 +434,46 @@ function UsarSala() {
                   >
                     <span role="img" aria-label="Visualizar">👁️</span>
                   </button>
+                  {idUsuario === String(ficha.idUsuario) && (
+                    <button
+                      className="botao-remover-ficha"
+                      title="Remover ficha da sala"
+                      onClick={async e => {
+                        e.stopPropagation()
+                        try {
+                          await api.delete('/salaFichas/remover', {
+                            data: { idSala, idFicha: ficha.id }
+                          })
+                          setFichas(fichas.filter(f => f.id !== ficha.id))
+                          setDrags(drags => {
+                            const novo = { ...drags }
+                            delete novo[ficha.id]
+                            return novo
+                          })
+                        } catch (err) {
+                          alert('Erro ao remover ficha da sala')
+                        }
+                      }}
+                      style={{
+                        position: 'absolute',
+                        bottom: 12,
+                        right: 12,
+                        background: 'rgba(255,255,255,0.85)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: 36,
+                        height: 36,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.10)',
+                        cursor: 'pointer',
+                        fontSize: 20
+                      }}
+                    >
+                      <span role="img" aria-label="Remover">❌</span>
+                    </button>
+                  )}
                 </div>
               )
             })
