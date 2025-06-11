@@ -91,3 +91,21 @@ export function desvincularFichaSala(req, res) {
         res.json({ mensagem: 'Ficha desvinculada da sala com sucesso!', resultado });
     });
 }
+
+export function desvincularTodasFichasSala(req, res) {
+    const { idSala } = req.params;
+
+    if (!idSala) {
+        return res.status(400).json({ erro: 'Parâmetro idSala é obrigatório.' });
+    }
+
+    const sql = 'DELETE FROM salaFichas WHERE idSala = ?';
+
+    conexao.query(sql, [idSala], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao desvincular todas as fichas da sala:', erro);
+            return res.status(500).json({ erro: 'Erro ao desvincular todas as fichas da sala.' });
+        }
+        res.json({ mensagem: 'Todas as fichas foram desvinculadas da sala com sucesso!', resultado });
+    });
+}

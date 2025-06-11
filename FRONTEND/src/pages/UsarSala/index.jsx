@@ -211,9 +211,14 @@ function UsarSala() {
 
   function irParaSalas() { navigate('/salas') }
 
-  function irParaPerfil() { navigate('/perfil') }
-
-  function irParaHomeLogin() { navigate('/homelogin') }
+  async function excluirSala() {
+    if (window.confirm('Tem certeza que deseja excluir esta sala?')) {
+      await api.delete(`/salaFichas/removerTodos/${idSala}`);
+      await api.delete(`/salaUsuario/desvincularTodos/${idSala}`)
+      await api.delete(`/sala/excluir/${idSala}`);
+      irParaSalas()
+    }
+  }
 
   // Componente para cada ficha
   function CardFicha({ idFicha }) {
@@ -349,6 +354,7 @@ function UsarSala() {
               <h1 className="titulo-centro">{nomeSala}</h1>
               <button onClick={irParaCriarFichas} className="botao-centro">Criar uma ficha</button>
               <button onClick={irParaMinhasFichas} className="botao-centro">Inserir ficha existente</button>
+              <button onClick={excluirSala} className="botao-centro">Excluir Sala</button>
             </div>
           ) : (
             fichas.map((ficha) => {
@@ -480,8 +486,9 @@ function UsarSala() {
           )}
           {fichas.length ? (
             <div className="botoes-icones-bottom fade-in">
-              <button onClick={irParaMinhasFichas} title="Adicionar Ficha" className="icone-botao"><span role="img" aria-label="chat">🔗</span></button>
-              <button onClick={irParaCriarFichas} title="Criar Ficha" className="icone-botao"><span role="img" aria-label="dice">➕</span></button>
+              <button onClick={irParaMinhasFichas} title="Adicionar Ficha" className="icone-botao"><span role="img" aria-label="adicionar ficha">🔗</span></button>
+              <button onClick={irParaCriarFichas} title="Criar Ficha" className="icone-botao"><span role="img" aria-label="criar ficha">➕</span></button>
+              <button onClick={excluirSala} title="Excluir Sala" className="icone-botao"><span role="img" aria-label="excluir sala">🚩</span></button>
             </div>
           ) : null}
         </div>

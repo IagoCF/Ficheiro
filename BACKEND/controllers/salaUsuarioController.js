@@ -35,3 +35,21 @@ export function usuarioVinculadoSala(req, res) {
         res.json({ vinculado: resultado.length > 0 });
     });
 }
+
+export function desvincularTodosUsuariosSala(req, res) {
+    const { idSala } = req.params;
+
+    if (!idSala) {
+        return res.status(400).json({ erro: 'Parâmetro idSala é obrigatório.' });
+    }
+
+    const sql = 'DELETE FROM salaUsuario WHERE idSala = ?';
+
+    conexao.query(sql, [idSala], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao desvincular usuários da sala:', erro);
+            return res.status(500).json({ erro: 'Erro ao desvincular usuários da sala.' });
+        }
+        res.json({ mensagem: 'Todos os usuários foram desvinculados da sala com sucesso!', resultado });
+    });
+}

@@ -91,3 +91,21 @@ export function entrarSala(req, res) {
         return res.json({ sucesso: false });
     });
 }
+
+export function excluirSala(req, res) {
+    const { idSala } = req.params;
+
+    if (!idSala) {
+        return res.status(400).json({ erro: 'O parâmetro idSala é obrigatório.' });
+    }
+
+    const sql = 'DELETE FROM sala WHERE id = ?';
+
+    conexao.query(sql, [idSala], function (erro, resultado) {
+        if (erro) {
+            console.error('Erro ao excluir sala:', erro);
+            return res.status(500).json({ erro: 'Erro ao excluir sala.' });
+        }
+        res.json({ mensagem: 'Sala excluída com sucesso!', resultado });
+    });
+}
